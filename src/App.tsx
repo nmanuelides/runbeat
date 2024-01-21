@@ -1,39 +1,37 @@
 import React, {useRef, useState, useEffect} from 'react';
 import './App.scss';
 import {getSongs, Song} from '../src/services/getsongbpm/getSongsByBpm';
-import {login, getAccessToken, getSpotifyUser, SpotifyUser} from '../src/services/spotify/authentication';
+import {login, isUserAuthenticated, getAccessToken, getSpotifyUser, SpotifyUser, SPOTIFY_ACCESS_TOKEN} from '../src/services/spotify/authentication';
+import { get } from 'http';
 
 function App() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState<Song[]>([]);
-  const [spotifyAcessToken, setSpotifyAccessToken] = useState<string>();
   const [spotifyUser, setSpotifyUser] = useState<SpotifyUser>();
+  const [spotifyIsConnected, setSpotifyIsConnected] = useState<boolean>()
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const code = searchParams.get('code');
-    if (code && !spotifyAcessToken) {
-      getAccessToken(code)
-        .then(accessToken => {
-          console.log("Requested Access Token: ", accessToken);
-          setSpotifyAccessToken(accessToken);
-          setSpotifyUser(getSpotifyUser(accessToken));
-          console.log("User: ", getSpotifyUser(accessToken));
-        })
-        .catch(error => {
-          console.error(error);
-          // handle the error here
+
+    if (spotifyUser === undefined) {
+      if (isUserAuthenticated()) {
+        setSpotifyIsConnected(true); 
+        getSpotifyUser().then((spotifyUser) => {
+          spotifyUser && setSpotifyUser(spotifyUser);
         });
+        } else if (code) {
+          getAccessToken(code);
+        }
     }
-  }, [spotifyAcessToken])
+    },[]);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const inputValue = inputRef.current?.value;
-
-
     setIsLoading(true);
+
     try {
       const results = await getSongs(Number(inputValue));
       setSearchResults(results);
@@ -45,15 +43,19 @@ function App() {
     }
   };
 
+
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="title">
         RUNBEAT.
       </header>
+      <h1 className="subtitle">
+        Run to your beat
+      </h1>
       <form className={'search-box'} onSubmit={onSubmit}>
+        {!spotifyIsConnected && <button className='spotify-login' onClick={login}>Connect to Spotify</button>}
       <div className={'search-box__input-container'}>
         <div className='search-box__input-text-container'>
-          <button className='spotify-login' onClick={login}>Connect to Spotify</button>
         <input
           name='searchInput'
           className={isLoading ? 'search-box__input-text-disabled' : 'search-box__input-text'}
