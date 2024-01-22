@@ -3,15 +3,16 @@
   src: url('./assets/RussoOne-Regular.ttf') format('truetype'),
 }
 
+$background-color: #c7ce9b;
 $accent-color: #7B1345;
-$primary-color: #CDD4A1;
-$secondary-color: #708142;
+$primary-color: #708142;
+$secondary-color: #fcffea;
 $dark-font-color: rgb(31,31,31);
 $light-font-color: white;
 $spotify-green: #1DB954;
 
 body {
-  background: $primary-color;
+  background: $background-color;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,7 +31,7 @@ body {
   margin-left: -32px;
   font-size: 8rem;
   font-weight: 800;
-  color: $secondary-color;
+  color: $primary-color;
   line-height: 1;
 }
 
@@ -39,7 +40,7 @@ body {
   margin-left: -32px;
   margin-top: 0;
   font-size: 1.8rem;
-  font-weight: 800;
+  font-weight: 400;
   color: $secondary-color;
   margin-bottom: 100px;
 }
@@ -47,15 +48,17 @@ body {
 .search-box {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-self: center;
   align-items: center;
-  background: $secondary-color;
+  background: linear-gradient(120deg, $primary-color, #54632a);
   width: 100%;
-  height: 100px;
+  height: 160px;
   padding: 32px;
   border-radius: 16px;
   gap: 16px;
+  box-shadow: 0 0 32px rgba(27, 39, 0, 0.75);
+  border: 1px solid rgba(#c7ce9b, 0.25);
 
   &__input-container {
     display: flex;
@@ -94,7 +97,7 @@ body {
     font-size: 0.9rem;
     font-weight: 400;
     padding: 16px;
-    background: $accent-color;
+    background: linear-gradient(120deg, $accent-color, #4b0426);
     color:white;
     cursor: pointer;
   }
@@ -148,6 +151,13 @@ body {
   box-shadow: 0 0 0 0;
   position: relative;
   top:4px;
+}
+
+.user-name {
+  color: $secondary-color;
+  align-self: flex-start;
+  margin: 0;
+  padding: 0;
 }
 
 .footer-link {

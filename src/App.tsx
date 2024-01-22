@@ -61,9 +61,10 @@ const handleSpotifyConnected = () => {
         RUNBEAT.
       </header>
       <h1 className="subtitle">
-        Run to your beat
+        Run to the beat
       </h1>
       <form className={'search-box'} onSubmit={onSubmit}>
+        {spotifyUser && <h1 className='user-name'>Hello {spotifyUser.display_name}</h1>}
         {!spotifyIsConnected && <button className='spotify-login' onClick={login}>Connect to Spotify</button>}
       <div className={'search-box__input-container'}>
         <div className='search-box__input-text-container'>
@@ -82,7 +83,6 @@ const handleSpotifyConnected = () => {
         </button>
       </div>
         </form>
-        {spotifyUser && <h1>Hello {spotifyUser.display_name}</h1>}
         {searchResults.length > 0 &&
         <ul className='results-list'>
           {searchResults.map((song) => {
