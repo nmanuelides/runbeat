@@ -1,31 +1,42 @@
 import React, {useRef, useState, useEffect} from 'react';
 import './App.scss';
-import {getSongs, Song} from '../src/services/getsongbpm/getSongsByBpm';
-import {login, isUserAuthenticated, getAccessToken, getSpotifyUser, SpotifyUser, SPOTIFY_ACCESS_TOKEN} from '../src/services/spotify/authentication';
-import { get } from 'http';
+import { getSongs, Song } from '../src/services/getsongbpm/getSongsByBpm';
+import { login, getAccessToken, getSpotifyUser, SpotifyUser } from '../src/services/spotify/authentication';
+import { isUserAuthenticated } from './services/spotify/authenticationHelper';
 
 function App() {
+  const SPOTIFY_USER_KEY = 'spotifyUser';
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState<Song[]>([]);
   const [spotifyUser, setSpotifyUser] = useState<SpotifyUser>();
   const [spotifyIsConnected, setSpotifyIsConnected] = useState<boolean>()
 
+
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const code = searchParams.get('code');
-
-    if (spotifyUser === undefined) {
+    console.log('userEffect called!!');
       if (isUserAuthenticated()) {
-        setSpotifyIsConnected(true); 
-        getSpotifyUser().then((spotifyUser) => {
-          spotifyUser && setSpotifyUser(spotifyUser);
-        });
+        console.log('User is authenticated');
+        setSpotifyIsConnected(true);
+        const storagedUser = localStorage.getItem(SPOTIFY_USER_KEY);
+        storagedUser && setSpotifyUser(JSON.parse(storagedUser)) 
         } else if (code) {
-          getAccessToken(code);
+          console.log('User is NOT authenticated');
+          getAccessToken(code).then(() => {
+            handleSpotifyConnected();
+          });
         }
-    }
     },[]);
+
+const handleSpotifyConnected = () => {
+  setSpotifyIsConnected(true); 
+  getSpotifyUser().then((spotifyUser) => {
+    localStorage.setItem(SPOTIFY_USER_KEY, JSON.stringify(spotifyUser));
+    spotifyUser && setSpotifyUser(spotifyUser);
+    });
+}
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
