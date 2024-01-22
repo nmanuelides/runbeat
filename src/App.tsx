@@ -1,7 +1,8 @@
 import React, {useRef, useState, useEffect} from 'react';
 import './App.scss';
 import { getSongs, Song } from '../src/services/getsongbpm/getSongsByBpm';
-import { login, getAccessToken, getSpotifyUser, SpotifyUser } from '../src/services/spotify/authentication';
+import { login, getAccessToken } from '../src/services/spotify/authentication';
+import { SpotifyUser, getOrCreatePlaylist, getSpotifyUser } from './services/spotify/data';
 import { isUserAuthenticated } from './services/spotify/authenticationHelper';
 
 function App() {
@@ -23,19 +24,26 @@ function App() {
         const storagedUser = localStorage.getItem(SPOTIFY_USER_KEY);
         storagedUser && setSpotifyUser(JSON.parse(storagedUser)) 
         } else if (code) {
+          setSpotifyIsConnected(false);
           console.log('User is NOT authenticated');
           getAccessToken(code).then(() => {
-            handleSpotifyConnected();
+          handleSpotifyConnected();
           });
+        } else {
+          setSpotifyIsConnected(false);
+          console.log('User is NOT authenticated');
         }
     },[]);
 
 const handleSpotifyConnected = () => {
-  setSpotifyIsConnected(true); 
-  getSpotifyUser().then((spotifyUser) => {
-    localStorage.setItem(SPOTIFY_USER_KEY, JSON.stringify(spotifyUser));
-    spotifyUser && setSpotifyUser(spotifyUser);
-    });
+  if(isUserAuthenticated()) {
+    setSpotifyIsConnected(true); 
+    getSpotifyUser().then((spotifyUser) => {
+      localStorage.setItem(SPOTIFY_USER_KEY, JSON.stringify(spotifyUser));
+      spotifyUser && setSpotifyUser(spotifyUser);
+      });
+
+  }
 }
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -64,8 +72,13 @@ const handleSpotifyConnected = () => {
         Run to the beat
       </h1>
       <form className={'search-box'} onSubmit={onSubmit}>
-        {spotifyUser && <h1 className='user-name'>Hello {spotifyUser.display_name}</h1>}
-        {!spotifyIsConnected && <button className='spotify-login' onClick={login}>Connect to Spotify</button>}
+        <div className='search-box__header'>
+          <div className='search-box__buttons-container'>
+            {!spotifyIsConnected && <button className='spotify-login' onClick={login} type="button">Connect to Spotify</button>}
+            <button className='get-playlists spotify-login' onClick={()=> {spotifyUser&& getOrCreatePlaylist(spotifyUser.id)}} type="button">Get Playlists</button>
+          </div>
+          {spotifyUser && <h1 className='user-name'>Hello {spotifyUser.display_name}</h1>}
+        </div>
       <div className={'search-box__input-container'}>
         <div className='search-box__input-text-container'>
         <input

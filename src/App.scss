@@ -3,6 +3,11 @@
   src: url('./assets/RussoOne-Regular.ttf') format('truetype'),
 }
 
+@font-face {
+  font-family: 'Wotfard';
+  src: url('./assets/wotfard-regular-webfont.ttf') format('truetype'),
+}
+
 $background-color: #c7ce9b;
 $accent-color: #7B1345;
 $primary-color: #708142;
@@ -17,6 +22,7 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100vw;
+  font-family: 'Wotfard', 'san-serif';
 }
 .App {
   display: flex;
@@ -49,16 +55,29 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
   align-self: center;
   align-items: center;
   background: linear-gradient(120deg, $primary-color, #54632a);
   width: 100%;
-  height: 160px;
+  height: fit-content;
   padding: 32px;
   border-radius: 16px;
-  gap: 16px;
+  gap: 32px;
   box-shadow: 0 0 32px rgba(27, 39, 0, 0.75);
-  border: 1px solid rgba(#c7ce9b, 0.25);
+  z-index: 1;
+
+  &__header {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  &__buttons-container {
+    display: flex;
+    gap: 8px;
+  }
 
   &__input-container {
     display: flex;
@@ -71,13 +90,14 @@ body {
 
   &__input-text {
     width: 100%;
-    font-family: 'RussoOne', 'sans-serif';
+    font-family: 'Wotfard', 'sans-serif';
+    font-size: 1.2rem;
+    font-weight: 600;
     height: 32px;
     border-radius: 12px;
     outline: none;
     border: none;
     padding: 16px;
-    font-size: 1.2rem;
   }
 
   &__input-text-disabled {
@@ -93,9 +113,9 @@ body {
   &__button {
     border: none;
     border-radius: 16px;
-    font-family: 'RussoOne', 'sans-serif';
+    font-family: 'Wotfard', 'sans-serif';
     font-size: 0.9rem;
-    font-weight: 400;
+    font-weight: 600;
     padding: 16px;
     background: linear-gradient(120deg, $accent-color, #4b0426);
     color:white;
@@ -111,7 +131,23 @@ body {
     background: #CDD4A1;
     color:#708142;
   }
-  
+}
+
+.search-box::before {
+  content: "";
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  background: linear-gradient(120deg, rgba($secondary-color, 0.35), transparent) border-box;
+  box-shadow: -12px -20px 56px 0px rgba(232, 237, 243, 0.05), 36px 12px 64px 0px rgba(2, 3, 3, 0.70), -16px -6px 80px 0px rgba(248, 249, 249, 0.03) inset;
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  z-index: -10;
 }
 .results-list {
   display: flex;
@@ -138,12 +174,14 @@ body {
 
 .spotify-login {
   background: $spotify-green;
+  justify-self: flex-end;
   border: none;
   padding: 12px;
   border-radius: 50px;
   color: $dark-font-color;
-  font-size: 0.8rem;
-  font-weight: 800;
+  font-family: 'Wotfard', 'sans-serif';
+  font-size: 1rem;
+  font-weight: 600;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
@@ -156,6 +194,7 @@ body {
 .user-name {
   color: $secondary-color;
   align-self: flex-start;
+  font-weight: 400;
   margin: 0;
   padding: 0;
 }

@@ -1,29 +1,10 @@
 import { getStoragedAccessToken, responseOkOrThrowError, saveResponseDataAsSpotifyAccessToken, removeCodeFromUrl } from "./authenticationHelper";
 export const SPOTIFY_ACCESS_TOKEN = 'spotifyAccessToken';
-const CLIENT_ID = "568e590db3bc49a1b13394b284de1d41";
-const CLIENT_SECRET = "08baca57ed6d4ba9999d059d12734d87";
-const REDIRECT_URL = "http://localhost:3000";
-const scopes = ['user-read-private', 'playlist-modify-public'];
+export const CLIENT_ID = "568e590db3bc49a1b13394b284de1d41";
+export const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
+export const REDIRECT_URL = "http://localhost:3000";
+export const scopes = ['user-read-private', 'playlist-modify-public', 'playlist-modify-private'];
 const EXPIRED_ACCESS_TOKEN_ERROR = 'Authorization code expired';
-
-
-export type ProfileImages = {
-    url: string;
-    height: number;
-    width: number;
-}
-
-export type SpotifyUser = {
-    id: string;
-    display_name: string;
-    externarl_urls: {spotify: string};
-    email: string;
-    explicit_content: {filter_enabled: boolean, filter_locked: boolean};
-    images: ProfileImages[];
-    product: string;
-    country: string;
-    uri: string;
-}
 
 export type SpotifyAccessToken = {
     accessToken: string;
@@ -97,27 +78,3 @@ async function refreshToken(refreshToken: string) {
         console.log(error);
     }
   }
-
-export const getSpotifyUser = async (): Promise<SpotifyUser | undefined> => { 
-    const accessToken: string | undefined = getStoragedAccessToken()?.accessToken;
-    if (accessToken) {
-      try {
-        const url = 'https://api.spotify.com/v1/me';
-        const response = await fetch(url, {
-          headers: {
-            'Authorization': `Bearer ${accessToken}`
-          }
-        });
-
-        
-        const data = await response.json();
-        responseOkOrThrowError(response, data);
-        
-        const user = await data;
-        return user;
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    return undefined;
-}
