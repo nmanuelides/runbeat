@@ -59,13 +59,13 @@ body {
   position: relative;
   align-self: center;
   align-items: center;
-  background: linear-gradient(120deg, $primary-color -80%, $secondary-color 80%);
+  background: linear-gradient(120deg, $primary-color -35%, rgba($secondary-color, 0.5) 70%);
   width: 100%;
   height: fit-content;
   padding: 32px;
   border-radius: 16px;
   gap: 32px;
-  box-shadow: 0 0 32px rgba($secondary-color, 0.85);
+  box-shadow: 0 0 32px rgba($secondary-color, 0.95);
   z-index: 1;
 
   &__header {
@@ -144,7 +144,7 @@ body {
   bottom: 0;
   border-radius: 16px;
   border: 1px solid transparent;
-  background: linear-gradient(120deg, rgba($secondary-color, 0.35), transparent) border-box;
+  background: linear-gradient(120deg, rgba($light-font-color, 0.3), transparent) border-box;
   box-shadow: -12px -20px 56px 0px rgba(232, 237, 243, 0.05), 36px 12px 64px 0px rgba(2, 3, 3, 0.70), -16px -6px 80px 0px rgba(248, 249, 249, 0.03) inset;
   mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
