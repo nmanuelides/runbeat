@@ -23,6 +23,7 @@ input[type=checkbox].toggle-switch{
     cursor: pointer;
     transition: background-color 0.26s ease-in-out;
     position: relative;
+    z-index: 1;
 }
 
 input[type=checkbox].toggle-switch:checked {
