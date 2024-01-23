@@ -4,6 +4,7 @@ import { getSongs, Song } from '../src/services/getsongbpm/getSongsByBpm';
 import { login, getAccessToken } from '../src/services/spotify/authentication';
 import { SpotifyUser, getOrCreatePlaylist, getSpotifyUser } from './services/spotify/data';
 import { isUserAuthenticated } from './services/spotify/authenticationHelper';
+import Toggle from './components/toggle/src/Toggle';
 
 function App() {
   const SPOTIFY_USER_KEY = 'spotifyUser';
@@ -72,6 +73,10 @@ const handleSpotifyConnected = () => {
         Run to the beat
       </h1>
       <form className={'search-box'} onSubmit={onSubmit}>
+        <div className='tools-container'>
+          <Toggle title='Kmh/Mph'/>
+          <Toggle title='Speed/Pace'/>
+        </div>
         <div className='search-box__header'>
           <div className='search-box__buttons-container'>
             {!spotifyIsConnected && <button className='spotify-login' onClick={login} type="button">Connect to Spotify</button>}

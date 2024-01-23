@@ -1,0 +1,48 @@
+@import '../../colors.scss';
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+    gap: 8px;
+    span {
+        font-size: 1.2rem;
+        color: $light-font-color;
+    }
+}
+
+input[type=checkbox].toggle-switch{
+    font-size: 12px;
+    appearance: none;
+    width: 6em;
+    height: 3.2em;
+    border-radius: 3.2em;
+    background-color: $background-color;
+    box-shadow: 0 0 10px rgba(black, 0.8) inset;
+    outline: 0;
+    cursor: pointer;
+    transition: background-color 0.26s ease-in-out;
+    position: relative;
+}
+
+input[type=checkbox].toggle-switch:checked {
+    background-color: $background-color;
+}
+
+input[type=checkbox].toggle-switch::after {
+    content: '';
+    width: 3.2em;
+    height: 3.2em;
+    background-color: $accent-color;
+    border-radius: 3.2em;
+    position: absolute;
+    transform: scale(0.7);
+    left: 0;
+    transition: all 0.26s ease-in-out;
+    box-shadow: 0 0.12em rgba(0,0,0, 0.8);
+}
+
+input[type=checkbox].toggle-switch:checked::after {
+    left: 2.8em;
+    background-color: $primary-color;
+}

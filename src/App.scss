@@ -1,3 +1,5 @@
+@import './components/colors.scss';
+
 @font-face {
   font-family: 'RussoOne';
   src: url('./assets/RussoOne-Regular.ttf') format('truetype'),
@@ -7,14 +9,6 @@
   font-family: 'Wotfard';
   src: url('./assets/wotfard-regular-webfont.ttf') format('truetype'),
 }
-
-$background-color: #004d37;
-$primary-color: #00a873;
-$secondary-color: #00291e;
-$accent-color: #e20e75;
-$dark-font-color: #00291e;
-$light-font-color: #e1fff0;
-$spotify-green: #1DB954;
 
 body {
   background: $background-color;
@@ -207,4 +201,12 @@ body {
   position: absolute;
   bottom: 2%;
   left: 45%;
+}
+
+.tools-container {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
