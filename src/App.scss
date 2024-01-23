@@ -8,12 +8,12 @@
   src: url('./assets/wotfard-regular-webfont.ttf') format('truetype'),
 }
 
-$background-color: #c7ce9b;
-$accent-color: #7B1345;
-$primary-color: #708142;
-$secondary-color: #fcffea;
-$dark-font-color: rgb(31,31,31);
-$light-font-color: white;
+$background-color: #004d37;
+$primary-color: #00a873;
+$secondary-color: #00291e;
+$accent-color: #e20e75;
+$dark-font-color: #00291e;
+$light-font-color: #e1fff0;
 $spotify-green: #1DB954;
 
 body {
@@ -21,7 +21,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw;
+  width: 100svw;
+  height: 100svh;
   font-family: 'Wotfard', 'san-serif';
 }
 .App {
@@ -37,7 +38,7 @@ body {
   margin-left: -32px;
   font-size: 8rem;
   font-weight: 800;
-  color: $primary-color;
+  color: $light-font-color;
   line-height: 1;
 }
 
@@ -47,7 +48,7 @@ body {
   margin-top: 0;
   font-size: 1.8rem;
   font-weight: 400;
-  color: $secondary-color;
+  color: $primary-color;
   margin-bottom: 100px;
 }
 
@@ -58,13 +59,13 @@ body {
   position: relative;
   align-self: center;
   align-items: center;
-  background: linear-gradient(120deg, $primary-color, #54632a);
+  background: linear-gradient(120deg, $primary-color -80%, $secondary-color 80%);
   width: 100%;
   height: fit-content;
   padding: 32px;
   border-radius: 16px;
   gap: 32px;
-  box-shadow: 0 0 32px rgba(27, 39, 0, 0.75);
+  box-shadow: 0 0 32px rgba($secondary-color, 0.85);
   z-index: 1;
 
   &__header {
@@ -117,7 +118,7 @@ body {
     font-size: 0.9rem;
     font-weight: 600;
     padding: 16px;
-    background: linear-gradient(120deg, $accent-color, #4b0426);
+    background: $accent-color;
     color:white;
     cursor: pointer;
   }
@@ -192,7 +193,7 @@ body {
 }
 
 .user-name {
-  color: $secondary-color;
+  color: $light-font-color;
   align-self: flex-start;
   font-weight: 400;
   margin: 0;
