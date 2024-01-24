@@ -1,13 +1,13 @@
-@import './components/colors.scss';
+@import "./components/colors.scss";
 
 @font-face {
-  font-family: 'RussoOne';
-  src: url('./assets/RussoOne-Regular.ttf') format('truetype'),
+  font-family: "RussoOne";
+  src: url("./assets/RussoOne-Regular.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Wotfard';
-  src: url('./assets/wotfard-regular-webfont.ttf') format('truetype'),
+  font-family: "Wotfard";
+  src: url("./assets/wotfard-regular-webfont.ttf") format("truetype");
 }
 
 body {
@@ -18,7 +18,7 @@ body {
   width: 90svw;
   height: 100svh;
   min-width: 0;
-  font-family: 'Wotfard', 'san-serif';
+  font-family: "Wotfard", "san-serif";
   overflow-x: hidden;
 }
 .App {
@@ -27,11 +27,10 @@ body {
   align-items: flex-start;
   width: 700px;
   margin-top: 128px;
-
 }
 
 .title {
-  font-family: 'RussoOne', 'sans-serif';
+  font-family: "RussoOne", "sans-serif";
   margin-left: -32px;
   font-size: 8rem;
   font-weight: 800;
@@ -41,7 +40,7 @@ body {
 }
 
 .subtitle {
-  font-family: 'RussoOne', 'sans-serif';
+  font-family: "RussoOne", "sans-serif";
   margin-left: -32px;
   margin-top: 0;
   font-size: 1.8rem;
@@ -98,7 +97,7 @@ body {
 
   &__input-text {
     width: 100%;
-    font-family: 'Wotfard', 'sans-serif';
+    font-family: "Wotfard", "sans-serif";
     font-size: 1.2rem;
     font-weight: 600;
     height: 32px;
@@ -122,12 +121,12 @@ body {
   &__button {
     border: none;
     border-radius: 16px;
-    font-family: 'Wotfard', 'sans-serif';
+    font-family: "Wotfard", "sans-serif";
     font-size: 0.9rem;
     font-weight: 600;
     padding: 16px;
     background: $accent-color;
-    color:white;
+    color: white;
     cursor: pointer;
     z-index: 3;
   }
@@ -139,7 +138,7 @@ body {
     font-weight: 600;
     padding: 16px;
     background: $secondary-color;
-    color: $primary-color
+    color: $primary-color;
   }
 }
 
@@ -158,6 +157,7 @@ body {
   mask-composite: exclude;
   z-index: -10;
 }
+
 .results-list {
   display: flex;
   flex-direction: column;
@@ -167,32 +167,6 @@ body {
   padding: 0;
   gap: 16px;
 }
-.song {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  background: $background-color;
-  padding: 16px;
-  border-radius: 16px;
-  gap: 8px;
-  box-shadow: 0 0 32px rgba($secondary-color, 0.95);
-
-  &__title {
-    font-size: 1.4rem;
-    font-weight: 600;
-    
-    z-index: 3;
-  }
-
-  &__link {
-    color: $primary-color;
-  }
-}
-
-.song > span{
-  z-index: 3;
-  color: $light-font-color;
-}
 
 .spotify-login {
   background: $spotify-green;
@@ -201,7 +175,7 @@ body {
   padding: 12px;
   border-radius: 50px;
   color: $dark-font-color;
-  font-family: 'Wotfard', 'sans-serif';
+  font-family: "Wotfard", "sans-serif";
   font-size: 1rem;
   font-weight: 600;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -211,7 +185,7 @@ body {
 .spotify-login:active {
   box-shadow: 0 0 0 0;
   position: relative;
-  top:4px;
+  top: 4px;
 }
 
 .user-name {
@@ -221,8 +195,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
-
 
 .tools-container {
   display: flex;
