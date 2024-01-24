@@ -12,7 +12,7 @@
 }
 
 input[type=checkbox].toggle-switch{
-    font-size: 12px;
+    font-size: 14px;
     appearance: none;
     width: 6em;
     height: 3.2em;
@@ -23,7 +23,6 @@ input[type=checkbox].toggle-switch{
     cursor: pointer;
     transition: background-color 0.26s ease-in-out;
     position: relative;
-    z-index: 1;
 }
 
 input[type=checkbox].toggle-switch:checked {
@@ -35,6 +34,9 @@ input[type=checkbox].toggle-switch::after {
     width: 3.2em;
     height: 3.2em;
     background-color: $accent-color;
+    background-image: url('../../../assets/treadmill-icon.png');
+    background-size: contain;
+    background-position: center;
     border-radius: 3.2em;
     position: absolute;
     transform: scale(0.7);
@@ -46,4 +48,7 @@ input[type=checkbox].toggle-switch::after {
 input[type=checkbox].toggle-switch:checked::after {
     left: 2.8em;
     background-color: $primary-color;
+    background-image: url('../../../assets/running-icon.png');
+    background-size: contain;
+    background-position: center;
 }

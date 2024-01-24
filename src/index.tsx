@@ -1,15 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Cursor from './components/cursor/src/Cursor';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
+    <Cursor/>
     <App />
+    <a className='footer-link' href='https://getsongbpm.com/' target='blank'>Powered by getSongBPM</a>
   </React.StrictMode>
 );
 

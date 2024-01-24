@@ -15,9 +15,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100svw;
+  width: 90svw;
   height: 100svh;
+  min-width: 0;
   font-family: 'Wotfard', 'san-serif';
+  overflow-x: hidden;
 }
 .App {
   display: flex;
@@ -25,6 +27,7 @@ body {
   align-items: flex-start;
   width: 700px;
   margin-top: 128px;
+
 }
 
 .title {
@@ -34,6 +37,7 @@ body {
   font-weight: 800;
   color: $light-font-color;
   line-height: 1;
+  z-index: 2;
 }
 
 .subtitle {
@@ -44,6 +48,7 @@ body {
   font-weight: 400;
   color: $primary-color;
   margin-bottom: 100px;
+  z-index: 2;
 }
 
 .search-box {
@@ -56,31 +61,39 @@ body {
   background: linear-gradient(120deg, $primary-color -35%, rgba($secondary-color, 0.5) 70%);
   width: 100%;
   height: fit-content;
+  margin-bottom: 16px;
   padding: 32px;
   border-radius: 16px;
   gap: 32px;
   box-shadow: 0 0 32px rgba($secondary-color, 0.95);
-  z-index: 1;
 
   &__header {
     display: flex;
     flex-direction: row-reverse;
     width: 100%;
     justify-content: space-between;
+    z-index: 3;
   }
 
   &__buttons-container {
     display: flex;
     gap: 8px;
+    z-index: 3;
+  }
+
+  &__form {
+    width: 100%;
   }
 
   &__input-container {
     display: flex;
-    width: 100%
+    width: 100%;
+    z-index: 3;
   }
 
   &__input-text-container {
     width: 100%;
+    z-index: 3;
   }
 
   &__input-text {
@@ -93,6 +106,7 @@ body {
     outline: none;
     border: none;
     padding: 16px;
+    z-index: 3;
   }
 
   &__input-text-disabled {
@@ -115,16 +129,17 @@ body {
     background: $accent-color;
     color:white;
     cursor: pointer;
+    z-index: 3;
   }
 
-  &__button-disabled {
+  &__button:disabled {
     border: none;
     border-radius: 16px;
     font-size: 0.9rem;
     font-weight: 600;
     padding: 16px;
-    background: #CDD4A1;
-    color:#708142;
+    background: $secondary-color;
+    color: $primary-color
   }
 }
 
@@ -146,24 +161,37 @@ body {
 .results-list {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  padding: 0;
   gap: 16px;
 }
 .song {
   display: flex;
   flex-direction: column;
-  background: #708142;
+  width: 100%;
+  background: $background-color;
   padding: 16px;
   border-radius: 16px;
   gap: 8px;
+  box-shadow: 0 0 32px rgba($secondary-color, 0.95);
 
   &__title {
     font-size: 1.4rem;
     font-weight: 600;
+    
+    z-index: 3;
   }
 
   &__link {
-    color: #CDD4A1;
+    color: $primary-color;
   }
+}
+
+.song > span{
+  z-index: 3;
+  color: $light-font-color;
 }
 
 .spotify-login {
@@ -177,6 +205,7 @@ body {
   font-size: 1rem;
   font-weight: 600;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  z-index: 6;
 }
 
 .spotify-login:active {
@@ -193,14 +222,7 @@ body {
   padding: 0;
 }
 
-.footer-link {
-  color: $dark-font-color;
-  font-size: 1rem;
-  font-weight: 600;
-  position: absolute;
-  bottom: 2%;
-  left: 45%;
-}
+
 
 .tools-container {
   display: flex;
@@ -208,4 +230,5 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
+  z-index: 3;
 }

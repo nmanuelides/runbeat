@@ -85,6 +85,16 @@ async function searchRunBeatPlaylist(playlistName: string, spotifyApi: SpotifyAp
     while(playlistsLength > 49)
 }
 
+export async function getCategories() {
+    const spotifyApi = createSpotifyApi();
+    let spotifyCategories;
+    await spotifyApi?.browse.getCategories(undefined, undefined,50).then((categories) => {
+        spotifyCategories = categories.categories.items
+        console.log("This are the categories found: ",categories.categories.items);
+    });
+    return spotifyCategories;
+}
+
 export const getSpotifyUser = async (): Promise<SpotifyUser | undefined> => { 
     const accessToken: string | undefined = getStoragedAccessToken()?.accessToken;
     if (accessToken) {
