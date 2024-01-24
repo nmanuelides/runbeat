@@ -1,5 +1,6 @@
 import React from "react";
-import '../styles/desktop.scss'
+import '../styles/desktop.scss';
+import '../styles/mobile.scss';
 
 type ToggleProps = {
     state?: boolean;

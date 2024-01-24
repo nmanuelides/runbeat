@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./App.scss";
+import './mobile.scss';
 import { getGenres, getSongs, GSBSong } from "../src/services/getsongbpm/getSongsByBpm";
 import { login, getAccessToken } from "../src/services/spotify/authentication";
 import { SpotifyUser, getCategories, getOrCreatePlaylist, getSpotifyUser } from "./services/spotify/data";

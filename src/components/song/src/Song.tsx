@@ -2,6 +2,7 @@ import { GSBSong } from "../../../services/getsongbpm/getSongsByBpm";
 import { useColor } from "color-thief-react";
 import defaultArtistImage from "../../../assets/default-artist-image.png";
 import "../styles/desktop.scss";
+import "../styles/mobile.scss";
 import { isGoodContrast } from "../../../colorContrast";
 
 type SongProps = {
