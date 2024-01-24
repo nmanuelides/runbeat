@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import '../styles/desktop.scss';
+import '../styles/mobile.scss';
 
 const Cursor = () => {
   const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });

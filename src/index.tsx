@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
+// import './mobile.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Cursor from './components/cursor/src/Cursor';

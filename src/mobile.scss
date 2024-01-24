@@ -1,13 +1,19 @@
 @media (max-width: 768px) {
-    .App {
-        width: 80svw;
-        margin-top: 2rem;
-      }
+  body {
+    width: 100svw;
+  }
+  .App {
+    width: 75svw;
+    margin-top: 2rem;
+  }
 
-      .title {
-        font-size: 4rem;
-      }
-      .subtitle {
-        font-size: 1.3rem;
-      }
+  .title {
+    font-size: 4rem;
+  }
+  .subtitle {
+    font-size: 1.3rem;
+  }
+  .results-list {
+    align-self: center;
+  }
 }
