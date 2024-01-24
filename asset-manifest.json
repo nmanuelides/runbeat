@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "./static/css/main.243add7b.css",
+    "main.css": "./static/css/main.d729a688.css",
     "main.js": "./static/js/main.ba6524ca.js",
     "static/js/787.e3b3edd7.chunk.js": "./static/js/787.e3b3edd7.chunk.js",
     "static/media/wotfard-regular-webfont.ttf": "./static/media/wotfard-regular-webfont.b7585f8e119628c4dfb2.ttf",
@@ -9,12 +9,12 @@
     "static/media/treadmill-icon.png": "./static/media/treadmill-icon.1de6e5a75da449c04c6e.png",
     "static/media/running-icon.png": "./static/media/running-icon.f611b592833cebbc62a5.png",
     "index.html": "./index.html",
-    "main.243add7b.css.map": "./static/css/main.243add7b.css.map",
+    "main.d729a688.css.map": "./static/css/main.d729a688.css.map",
     "main.ba6524ca.js.map": "./static/js/main.ba6524ca.js.map",
     "787.e3b3edd7.chunk.js.map": "./static/js/787.e3b3edd7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.243add7b.css",
+    "static/css/main.d729a688.css",
     "static/js/main.ba6524ca.js"
   ]
 }
