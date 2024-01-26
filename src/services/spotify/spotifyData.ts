@@ -1,5 +1,5 @@
 import { getStoragedAccessToken, responseOkOrThrowError } from "./authenticationHelper";
-import { Playlist, SpotifyApi, TrackItem } from "@spotify/web-api-ts-sdk";
+import { Playlist, SpotifyApi, Track, TrackItem } from "@spotify/web-api-ts-sdk";
 import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, scopes } from "./authentication";
 
 const PLAYLISTS_LIMIT = 50;
@@ -87,12 +87,22 @@ async function searchRunBeatPlaylist(playlistName: string, spotifyApi: SpotifyAp
   } while (playlistsLength > 49);
 }
 
-export async function addSong(songName: string, artistName:string, userId: string, playlistName: string) {
-  const accessToken: string | undefined = getStoragedAccessToken()?.accessToken;
+export async function addSong(songName: string, artistName: string, userId: string, playlistName: string) {
+  const songUri = await getSong(songName, artistName);
   const playlist = await getOrCreatePlaylist(userId, playlistName);
-  if (accessToken && playlist) {
+  if (songUri && playlist) {
+    const songAdded = await addSongToRunBeatPlaylist(playlist.id, [songUri]);
+    return songAdded;
+  }
+}
+
+async function getSong(songName: string, artistName: string) {
+  const accessToken: string | undefined = getStoragedAccessToken()?.accessToken;
+
+  if (accessToken) {
     try {
-      const url = "https://api.spotify.com/v1/search?query=track:" + songName +", artist:" + artistName + "&type=track&limit=1";
+      const url =
+        "https://api.spotify.com/v1/search?query=track:" + songName + ", artist:" + artistName + "&type=track&limit=1";
       const response = await fetch(url, {
         headers: {
           Authorization: "Bearer " + accessToken,
@@ -104,13 +114,51 @@ export async function addSong(songName: string, artistName:string, userId: strin
       console.log("Song Found!", data);
 
       const songUri = data.tracks.items[0].uri;
-      addSongToRunBeatPlaylist(playlist.id, [songUri])
-      return true;
+      return songUri;
     } catch (error) {
+      console.log("Song not found, attempting deepSearch...");
+      const songUri = await deepSearch(songName, artistName, accessToken);
+      if (songUri) {
+        return songUri;
+      }
       console.error(error);
-      return false;
     }
   }
+}
+
+async function deepSearch(songName: string, artistName: string, accessToken: string) {
+  try {
+    const url = "https://api.spotify.com/v1/search?query=track:" + songName + "&type=track&limit=50";
+    const response = await fetch(url, {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    });
+    const data = await response.json();
+    responseOkOrThrowError(response, data);
+
+    console.log("Song Found!", data);
+
+    const songUri = findSongByArtistName(data.tracks.items, artistName)?.uri;
+    if (songUri) {
+      return songUri;
+    }
+    throw { error: "Song cannot be found" };
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function findSongByArtistName(songs: Track[], artistName: string): Track | undefined {
+  const artistNameParts = artistName.split(/[\s,._+-]+/);
+  return songs.find((song) => {
+    return song.artists.some((artist) => {
+      const artistNamePartsMatched = artist.name
+        .split(/[\s,._+-]+/)
+        .filter((part) => artistNameParts.some((namePart) => part.toLowerCase().includes(namePart.toLowerCase())));
+      return artistNamePartsMatched.length > 0;
+    });
+  });
 }
 
 async function addSongToRunBeatPlaylist(playlistId: string, uris: string[]) {
@@ -118,8 +166,10 @@ async function addSongToRunBeatPlaylist(playlistId: string, uris: string[]) {
   if (spotifyApi) {
     try {
       spotifyApi.playlists.addItemsToPlaylist(playlistId, uris);
+      return true;
     } catch (error) {
       console.error(error);
+      return false;
     }
   }
 }

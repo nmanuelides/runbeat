@@ -1,15 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./App.scss";
-import './mobile.scss';
+import "./mobile.scss";
 import { getGenres, getSongs, GSBSong } from "../src/services/getsongbpm/getSongsByBpm";
 import { login, getAccessToken } from "../src/services/spotify/authentication";
-import { SpotifyUser, getCategories, getOrCreatePlaylist, getSpotifyUser } from "./services/spotify/data";
+import { SpotifyUser, getCategories, getOrCreatePlaylist, getSpotifyUser } from "./services/spotify/spotifyData";
 import { isUserAuthenticated } from "./services/spotify/authenticationHelper";
 import Toggle from "./components/toggle/src/Toggle";
 import Song from "../src/components/song/src/Song";
 
 function App() {
-  const playlistName = 'RunBeat Playlist'
+  const playlistName = "RunBeat Playlist";
   const SPOTIFY_USER_KEY = "spotifyUser";
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,7 +56,6 @@ function App() {
       const results = await getSongs(Number(inputValue));
       getGenres(Number(inputValue));
       setSearchResults(results);
-      console.log(results.length);
     } catch (error) {
       console.error(error);
     } finally {
@@ -94,7 +93,7 @@ function App() {
                 Get Categories
               </button>
             </div>
-            {spotifyUser && <h1 className="user-name">Hello {spotifyUser.display_name}</h1>}
+            {/* {spotifyUser && <h1 className="user-name">Hello {spotifyUser.display_name}</h1>} */}
           </div>
           <form className="search-box__form" onSubmit={onSubmit}>
             <div className={"search-box__input-container"}>
@@ -117,7 +116,7 @@ function App() {
         {searchResults.length > 0 && (
           <ul className="results-list">
             {searchResults.map((song) => {
-              return <Song song={song} userId={spotifyUser?.id}/>;
+              return <Song key={song.song_id} song={song} userId={spotifyUser?.id} />;
             })}
           </ul>
         )}

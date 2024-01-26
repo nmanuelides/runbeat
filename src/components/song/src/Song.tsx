@@ -6,7 +6,7 @@ import "../styles/desktop.scss";
 import "../styles/mobile.scss";
 import addIcon from "../../../assets/light-plus-icon.png";
 import { getSecondaryColor, getContrastyColor } from "../../../helpers/colorHelper";
-import { addSong } from "../../../services/spotify/data";
+import { addSong } from "../../../services/spotify/spotifyData";
 
 type SongProps = {
   song: GSBSong;
@@ -21,11 +21,11 @@ const Song = ({ song, userId }: SongProps): JSX.Element => {
   const { data } = useColor(song.artist.img, "hslString", options);
   const [addSongState, setAddSongState] = useState<AddSongState>("idle");
 
-  const addSongToRunbeatPlaylist = async (songName: string, artistName:string) => {
+  const addSongToRunbeatPlaylist = async (songName: string, artistName: string) => {
     if (userId) {
       setAddSongState("adding");
-      const response = await addSong(songName, artistName, userId, playlistName);
-      response ? setAddSongState("added") : setAddSongState("error");
+      const songAdded = await addSong(songName, artistName, userId, playlistName);
+      songAdded ? setAddSongState("added") : setAddSongState("error");
     }
   };
 

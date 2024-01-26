@@ -30,12 +30,17 @@
   &__details {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     z-index: 3;
 
     &-title {
       font-size: 1.4rem;
       font-weight: 600;
       z-index: 3;
+      word-wrap: break-word;
+    }
+    &-genres {
+      word-break: break-word;
     }
   }
 
@@ -48,7 +53,7 @@
     align-self: flex-end;
     transition: all 0.2s ease-in-out;
     &-icon{
-      width: 50%;
+      width: 45%;
       height: auto;
     }
   }

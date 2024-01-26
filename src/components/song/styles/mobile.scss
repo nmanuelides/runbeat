@@ -1,8 +1,16 @@
 @media (max-width: 768px) {
     .song {
+        width: 85%;
         &__artist-image {
             width: 90px;
             height: 90px;
+        }
+        &__info {
+            width: 70%;
+        }
+
+        &__add-song {
+            width: 30%;
         }
     }
 }
