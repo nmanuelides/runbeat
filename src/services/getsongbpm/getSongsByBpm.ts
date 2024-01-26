@@ -54,7 +54,7 @@ export const getGenres = async (bpm: number) => {
         }
       });
   });
-  console.log(`Found ${songs.length} genres: `, genres);
+  console.log(`Found ${genres.length} genres: `, genres);
 };
 
 const getSongsByBPM = (bpm: number) => {};

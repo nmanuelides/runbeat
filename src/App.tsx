@@ -9,6 +9,7 @@ import Toggle from "./components/toggle/src/Toggle";
 import Song from "../src/components/song/src/Song";
 
 function App() {
+  const playlistName = 'RunBeat Playlist'
   const SPOTIFY_USER_KEY = "spotifyUser";
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +20,6 @@ function App() {
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const code = searchParams.get("code");
-    console.log("userEffect called!!");
     if (isUserAuthenticated()) {
       console.log("User is authenticated");
       setSpotifyIsConnected(true);
@@ -84,7 +84,7 @@ function App() {
               <button
                 className="get-playlists spotify-login"
                 onClick={() => {
-                  spotifyUser && getOrCreatePlaylist(spotifyUser.id);
+                  spotifyUser && getOrCreatePlaylist(spotifyUser.id, playlistName);
                 }}
                 type="button"
               >
@@ -117,7 +117,7 @@ function App() {
         {searchResults.length > 0 && (
           <ul className="results-list">
             {searchResults.map((song) => {
-              return <Song song={song} />;
+              return <Song song={song} userId={spotifyUser?.id}/>;
             })}
           </ul>
         )}

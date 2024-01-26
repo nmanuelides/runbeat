@@ -10,17 +10,6 @@
   src: url("./assets/wotfard-regular-webfont.ttf") format("truetype");
 }
 
-body {
-  background: $background-color;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 90svw;
-  height: 100svh;
-  min-width: 0;
-  font-family: "Wotfard", "san-serif";
-  overflow-x: hidden;
-}
 .App {
   display: flex;
   flex-direction: column;

@@ -1,19 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.scss';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.scss";
 // import './mobile.scss';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import Cursor from './components/cursor/src/Cursor';
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import Cursor from "./components/cursor/src/Cursor";
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
-    <Cursor/>
-    <App />
-    <a className='footer-link' href='https://getsongbpm.com/' target='blank'>Powered by getSongBPM</a>
+    <Cursor />
+    <div className="main-container">
+      <App />
+      <a className="footer-link" href="https://getsongbpm.com/" target="blank">
+        Powered by getSongBPM
+      </a>
+    </div>
   </React.StrictMode>
 );
 

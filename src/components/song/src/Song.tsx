@@ -1,37 +1,68 @@
+import { useState } from "react";
 import { GSBSong } from "../../../services/getsongbpm/getSongsByBpm";
 import { useColor } from "color-thief-react";
-import defaultArtistImage from "../../../assets/default-artist-image.png";
+import defaultArtistImage from "../../../assets/default-artist-image.jpg";
 import "../styles/desktop.scss";
 import "../styles/mobile.scss";
-import { isGoodContrast } from "../../../colorContrast";
+import addIcon from "../../../assets/light-plus-icon.png";
+import { getSecondaryColor, getContrastyColor } from "../../../helpers/colorHelper";
+import { addSong } from "../../../services/spotify/data";
 
 type SongProps = {
   song: GSBSong;
+  userId?: string;
 };
 
-const Song = ({ song }: SongProps): JSX.Element => {
-  const lightFontColor = "#e1fff0";
-  const darkFontColor = "#00291e";
+type AddSongState = "idle" | "adding" | "added" | "error";
+
+const Song = ({ song, userId }: SongProps): JSX.Element => {
+  const playlistName = "RunBeat Playlist";
   const options = { crossOrigin: "Anonymous", quality: 80 };
-  const { data } = useColor(song.artist.img, "hex", options);
-  let rimColor;
-  let backgroundColor;
-  let songStyle;
-  if (data) {
-    rimColor = { "--rim-color": data };
-    backgroundColor = { background: data };
-    songStyle = { ...rimColor, ...backgroundColor };
+  const { data } = useColor(song.artist.img, "hslString", options);
+  const [addSongState, setAddSongState] = useState<AddSongState>("idle");
+
+  const addSongToRunbeatPlaylist = async (songName: string, artistName:string) => {
+    if (userId) {
+      setAddSongState("adding");
+      const response = await addSong(songName, artistName, userId, playlistName);
+      response ? setAddSongState("added") : setAddSongState("error");
+    }
+  };
+
+  function getAddSongButtonClass() {
+    switch (addSongState) {
+      case "idle":
+        return "song__add-song-button-idle";
+      case "adding":
+        return "song__add-song-button-adding";
+      case "added":
+        return "song__add-song-button-added";
+      case "error":
+        return "song__add-song-button-error";
+      default:
+        return "song__add-song-button-idle";
+    }
   }
-  const textColor = isGoodContrast(data, lightFontColor) || !data ? lightFontColor : darkFontColor;
+
   return (
-    <div className="song" style={songStyle}>
-      <img className="song__artist-image" src={song.artist.img ? song.artist.img : defaultArtistImage}></img>
-      <div className="song__data" style={{ color: textColor }}>
-        <span className="song__data-title">{song.song_title}</span>
-        <span className="song__data-artist-name">{song.artist.name}</span>
-        <span className="song__data-genres">{song.artist.genres}</span>
-        <span className="song__data-tempo">{song.tempo}</span>
+    <div className="song" style={{ background: data }}>
+      <div className="song__info">
+        <img className="song__artist-image" src={song.artist.img ? song.artist.img : defaultArtistImage}></img>
+        <div className="song__details" style={{ color: getContrastyColor(data) }}>
+          <span className="song__details-title">{song.song_title}</span>
+          <span className="song__details-artist-name">{song.artist.name}</span>
+          <span className="song__details-genres">{song.artist.genres}</span>
+          <span className="song__details-tempo">{song.tempo}</span>
+        </div>
       </div>
+      <button
+        aria-label={"Add to your RunBeat playlist"}
+        className={`song__add-song-button ${getAddSongButtonClass()}`}
+        style={{ background: getSecondaryColor(data) }}
+        onClick={() => addSongToRunbeatPlaylist(song.song_title, song.artist.name)}
+      >
+        <img className="song__add-song-button-icon" src={addIcon} />
+      </button>
     </div>
   );
 };
