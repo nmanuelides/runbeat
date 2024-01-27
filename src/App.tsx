@@ -80,20 +80,7 @@ function App() {
                   Connect to Spotify
                 </button>
               )}
-              <button
-                className="get-playlists spotify-login"
-                onClick={() => {
-                  spotifyUser && getOrCreatePlaylist(spotifyUser.id, playlistName);
-                }}
-                type="button"
-              >
-                Get Playlists
-              </button>
-              <button className="get-categories spotify-login" onClick={getCategories} type="button">
-                Get Categories
-              </button>
             </div>
-            {/* {spotifyUser && <h1 className="user-name">Hello {spotifyUser.display_name}</h1>} */}
           </div>
           <form className="search-box__form" onSubmit={onSubmit}>
             <div className={"search-box__input-container"}>
