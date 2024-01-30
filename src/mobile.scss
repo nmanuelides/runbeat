@@ -7,6 +7,20 @@
     margin-top: 2rem;
   }
 
+  .main-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100svw;
+    height: 100%;
+    background-image: url("./assets/halftone2.png");
+    background-size: percentage(2);
+    filter: invert(0.5);
+    mix-blend-mode: multiply;
+    opacity: 0.1;
+  }
+
   .title {
     font-size: 4rem;
   }

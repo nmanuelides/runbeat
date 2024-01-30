@@ -59,14 +59,24 @@
     display: flex;
     flex-direction: row-reverse;
     width: 100%;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     z-index: 3;
   }
 
   &__buttons-container {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 8px;
     z-index: 3;
+
+    span {
+      font-size: 0.8rem;
+      color: rgba($light-font-color, 0.7);
+      text-shadow: 0 0 4px black;
+    }
   }
 
   &__form {
@@ -95,6 +105,10 @@
     border: none;
     padding: 16px;
     z-index: 3;
+  }
+
+  &__input-text::placeholder {
+    font-style: italic;
   }
 
   &__input-text-disabled {
@@ -157,10 +171,11 @@
   gap: 16px;
 }
 
-.spotify-login {
+.spotify-login-button {
   background: $spotify-green;
   justify-self: flex-end;
   border: none;
+  max-width: 200px;
   padding: 12px;
   border-radius: 50px;
   color: $dark-font-color;
@@ -171,7 +186,7 @@
   z-index: 6;
 }
 
-.spotify-login:active {
+.spotify-login-button:active {
   box-shadow: 0 0 0 0;
   position: relative;
   top: 4px;
@@ -187,9 +202,42 @@
 
 .tools-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   width: 100%;
   margin: 0;
   padding: 0;
   z-index: 3;
+
+  .setting-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    z-index: 3;
+
+    &__input {
+      width: 80px;
+      font-family: "Wotfard", "sans-serif";
+      font-size: 1.2rem;
+      font-weight: 400;
+      height: 16px;
+      border-radius: 32px;
+      outline: none;
+      border: none;
+      padding: 16px;
+      z-index: 3;
+    }
+
+    &__input::placeholder {
+      font-size: 1rem;
+      text-align: center;
+      font-style: italic;
+    }
+  }
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

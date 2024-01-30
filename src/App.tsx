@@ -12,6 +12,8 @@ function App() {
   const playlistName = "RunBeat Playlist";
   const SPOTIFY_USER_KEY = "spotifyUser";
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const speedInputRef = useRef<HTMLInputElement | null>(null);
+  const heightInputRef = useRef<HTMLInputElement | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState<GSBSong[]>([]);
   const [spotifyUser, setSpotifyUser] = useState<SpotifyUser>();
@@ -70,15 +72,38 @@ function App() {
         <h1 className="subtitle">Run to the beat</h1>
         <div className={"search-box"}>
           <div className="tools-container">
-            <Toggle title="Kmh/Mph" />
-            <Toggle title="Speed/Pace" />
+            <div className="setting-container">
+              <Toggle title="Speed" type="speed" />
+              <input
+                name="searchInput"
+                className="setting-container__input"
+                type="number"
+                ref={speedInputRef}
+                autoComplete="off"
+                placeholder="speed"
+              />
+            </div>
+            <div className="setting-container">
+              <Toggle title="Height" type="height" />
+              <input
+                name="searchInput"
+                className="setting-container__input"
+                type="number"
+                ref={heightInputRef}
+                autoComplete="off"
+                placeholder="height"
+              />
+            </div>
           </div>
           <div className="search-box__header">
             <div className="search-box__buttons-container">
               {!spotifyIsConnected && (
-                <button className="spotify-login" onClick={login} type="button">
-                  Connect to Spotify
-                </button>
+                <>
+                  <button className="spotify-login-button" onClick={login} type="button">
+                    Connect to Spotify
+                  </button>
+                  <span>Connect to your spotify account to create a playlist and start adding songs!</span>
+                </>
               )}
             </div>
           </div>
