@@ -1,12 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./App.scss";
 import "./mobile.scss";
-import { getGenres, getSongs, GSBSong } from "../src/services/getsongbpm/getSongsByBpm";
+import { getSongs, GSBSong } from "../src/services/getsongbpm/getSongsByBpm";
 import { login, getAccessToken } from "../src/services/spotify/authentication";
-import { SpotifyUser, getCategories, getOrCreatePlaylist, getSpotifyUser } from "./services/spotify/spotifyData";
+import { SpotifyUser, getSpotifyUser } from "./services/spotify/spotifyData";
 import { isUserAuthenticated } from "./services/spotify/authenticationHelper";
-import Toggle from "./components/toggle/src/Toggle";
+import Toggle, { ToggleType } from "./components/toggle/src/Toggle";
 import Song from "../src/components/song/src/Song";
+import { ShowSnackbarContext } from "./contexts/showSnackbarContext";
+import Snackbar, { SnackbarProps } from "./components/snackbar/src/Snackbar";
+import { getSPM } from "./helpers/formulaHelper";
 
 function App() {
   const playlistName = "RunBeat Playlist";
@@ -18,6 +21,13 @@ function App() {
   const [searchResults, setSearchResults] = useState<GSBSong[]>([]);
   const [spotifyUser, setSpotifyUser] = useState<SpotifyUser>();
   const [spotifyIsConnected, setSpotifyIsConnected] = useState<boolean>();
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarType, setSnackbarType] = useState<SnackbarProps["type"]>("error");
+  let speed: number;
+  let speedUnit: "kmh" | "mph" = "kmh";
+  let height: number;
+  let heightUnit: "cm" | "in" = "cm";
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -52,46 +62,72 @@ function App() {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const inputValue = inputRef.current?.value;
+    speed = Number(speedInputRef.current?.value);
+    height = Number(heightInputRef.current?.value);
     setIsLoading(true);
 
     try {
-      const results = await getSongs(Number(inputValue));
-      getGenres(Number(inputValue));
-      setSearchResults(results);
+      const searchParam = inputValue ? Number(inputValue) : getSPM(speed, height, speedUnit, heightUnit);
+      const results = await getSongs(searchParam);
+      setShowSnackbar(true);
+      if (results.length > 0) {
+        setSnackbarMessage("Songs found: " + results.length);
+        setSnackbarType("success");
+        setSearchResults(results);
+      } else {
+        setSnackbarMessage("No songs found");
+        setSnackbarType("error");
+        setSearchResults(results);
+      }
     } catch (error) {
+      setShowSnackbar(true);
+      setSnackbarMessage("An error ocurred trying to search for songs, please try again later.");
+      setSnackbarType("error");
       console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleToggle = (type: ToggleType, e: React.ChangeEvent<HTMLInputElement>) => {
+    if (type === "speed") {
+      speedUnit = e.target.checked ? "mph" : "kmh";
+    } else {
+      heightUnit = e.target.checked ? "in" : "cm";
+    }
+    console.log(
+      type + " Toogle is: ",
+      type === "speed" ? (e.target.checked ? "mph" : "kmh") : e.target.checked ? "in" : "cm"
+    );
+  };
+
   return (
-    <>
+    <ShowSnackbarContext.Provider value={{ showSnackbar, setShowSnackbar }}>
       <div className="App">
         <header className="title">RUNBEAT.</header>
         <h1 className="subtitle">Run to the beat</h1>
         <div className={"search-box"}>
           <div className="tools-container">
             <div className="setting-container">
-              <Toggle title="Speed" type="speed" />
+              <Toggle title="Speed" type="speed" handleToggle={handleToggle} />
               <input
-                name="searchInput"
+                name="speedInput"
                 className="setting-container__input"
                 type="number"
                 ref={speedInputRef}
                 autoComplete="off"
-                placeholder="speed"
+                placeholder="i.e: 8"
               />
             </div>
             <div className="setting-container">
-              <Toggle title="Height" type="height" />
+              <Toggle title="Height" type="height" handleToggle={handleToggle} />
               <input
-                name="searchInput"
+                name="heightInput"
                 className="setting-container__input"
                 type="number"
                 ref={heightInputRef}
                 autoComplete="off"
-                placeholder="height"
+                placeholder="i.e: 70.7"
               />
             </div>
           </div>
@@ -120,7 +156,7 @@ function App() {
                 />
               </div>
               <button className={"search-box__button"} type="submit" disabled={isLoading}>
-                BUSCAR
+                SEARCH
               </button>
             </div>
           </form>
@@ -133,7 +169,8 @@ function App() {
           </ul>
         )}
       </div>
-    </>
+      <Snackbar message={snackbarMessage} type={snackbarType} />
+    </ShowSnackbarContext.Provider>
   );
 }
 

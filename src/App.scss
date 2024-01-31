@@ -54,6 +54,7 @@
   border-radius: 16px;
   gap: 32px;
   box-shadow: 0 0 32px rgba($secondary-color, 0.95);
+  transition: height 0.2s ease-in-out;
 
   &__header {
     display: flex;
@@ -158,6 +159,7 @@
   background: linear-gradient(120deg, rgba($light-font-color, 0.3), transparent) border-box;
   mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
+  transition: height 0.2s ease-in-out;
   z-index: -10;
 }
 
@@ -231,7 +233,7 @@
 
     &__input::placeholder {
       font-size: 1rem;
-      text-align: center;
+      padding-left: 8px;
       font-style: italic;
     }
   }

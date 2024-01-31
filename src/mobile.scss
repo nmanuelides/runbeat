@@ -30,4 +30,12 @@
   .results-list {
     align-self: center;
   }
+
+  .tools-container {
+    flex-direction: column;
+    
+    .setting-container {
+      align-items: flex-end;
+    }
+  }
 }

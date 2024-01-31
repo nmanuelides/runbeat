@@ -8,7 +8,7 @@ import Cursor from "./components/cursor/src/Cursor";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
-  <React.StrictMode>
+  <>
     <Cursor />
     <div className="main-container">
       <App />
@@ -16,7 +16,7 @@ root.render(
         Powered by getSongBPM
       </a>
     </div>
-  </React.StrictMode>
+  </>
 );
 
 // If you want to start measuring performance in your app, pass a function
