@@ -34,12 +34,18 @@
     z-index: 3;
 
     &-title {
+      font-family: 'EudoxusRegular', 'sans-serif';
       font-size: 1.4rem;
       font-weight: 600;
       z-index: 3;
       word-wrap: break-word;
     }
+
+    &-artist-name {
+      font-family: 'EudoxusRegular', 'sans-serif';
+    }
     &-genres {
+      font-family: 'EudoxusRegular', 'sans-serif';
       word-break: break-word;
     }
   }

@@ -6,8 +6,13 @@
 }
 
 @font-face {
-  font-family: "Wotfard";
-  src: url("./assets/wotfard-regular-webfont.ttf") format("truetype");
+  font-family: "EudoxusBold";
+  src: url("./assets/EudoxusSans-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "EudoxusRegular";
+  src: url("./assets/EudoxusSans-Regular.ttf") format("truetype");
 }
 
 .App {
@@ -86,18 +91,14 @@
 
   &__input-container {
     display: flex;
-    width: 100%;
-    z-index: 3;
-  }
-
-  &__input-text-container {
+    justify-content: center;
     width: 100%;
     z-index: 3;
   }
 
   &__input-text {
     width: 100%;
-    font-family: "Wotfard", "sans-serif";
+    font-family: "EudoxusRegular", "sans-serif";
     font-size: 1.2rem;
     font-weight: 600;
     height: 32px;
@@ -109,6 +110,7 @@
   }
 
   &__input-text::placeholder {
+    font-family: "EudoxusRegular", "sans-serif";
     font-style: italic;
   }
 
@@ -123,19 +125,22 @@
   }
 
   &__button {
-    border: none;
+    width: 100%;
+    border: 1px solid transparent;
     border-radius: 16px;
-    font-family: "Wotfard", "sans-serif";
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-family: "EudoxusBold", "sans-serif";
+    font-size: 1.2rem;
     padding: 16px;
-    background: $accent-color;
+    background: linear-gradient(130deg, $accent-color 0%, $dark-accent-color 100%) padding-box,
+      linear-gradient(130deg, #ff459f 20%, transparent 100%) border-box;
+    box-shadow: 0 0 4px black;
     color: white;
     cursor: pointer;
     z-index: 3;
   }
 
   &__button:disabled {
+    cursor: wait;
     border: none;
     border-radius: 16px;
     font-size: 0.9rem;
@@ -181,7 +186,7 @@
   padding: 12px;
   border-radius: 50px;
   color: $dark-font-color;
-  font-family: "Wotfard", "sans-serif";
+  font-family: "EudoxusRegular", "sans-serif";
   font-size: 1rem;
   font-weight: 600;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -220,7 +225,7 @@
 
     &__input {
       width: 80px;
-      font-family: "Wotfard", "sans-serif";
+      font-family: "EudoxusRegular", "sans-serif";
       font-size: 1.2rem;
       font-weight: 400;
       height: 16px;
@@ -232,9 +237,9 @@
     }
 
     &__input::placeholder {
+      font-family: "EudoxusRegular", "sans-serif";
       font-size: 1rem;
       padding-left: 8px;
-      font-style: italic;
     }
   }
 }

@@ -24,10 +24,10 @@ function App() {
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarType, setSnackbarType] = useState<SnackbarProps["type"]>("error");
+  const [heightUnit, setHeightUnit] = useState<"cm" | "in">("cm");
   let speed: number;
   let speedUnit: "kmh" | "mph" = "kmh";
   let height: number;
-  let heightUnit: "cm" | "in" = "cm";
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -93,7 +93,7 @@ function App() {
     if (type === "speed") {
       speedUnit = e.target.checked ? "mph" : "kmh";
     } else {
-      heightUnit = e.target.checked ? "in" : "cm";
+      setHeightUnit(e.target.checked ? "in" : "cm");
     }
     console.log(
       type + " Toogle is: ",
@@ -127,7 +127,7 @@ function App() {
                 type="number"
                 ref={heightInputRef}
                 autoComplete="off"
-                placeholder="i.e: 70.7"
+                placeholder={heightUnit === "cm" ? "i.e: 178" : "i.e 70.7"}
               />
             </div>
           </div>
@@ -145,16 +145,14 @@ function App() {
           </div>
           <form className="search-box__form" onSubmit={onSubmit}>
             <div className={"search-box__input-container"}>
-              <div className="search-box__input-text-container">
-                <input
+              {/* <input
                   name="searchInput"
                   className={isLoading ? "search-box__input-text-disabled" : "search-box__input-text"}
                   type="text"
                   ref={inputRef}
                   autoComplete="off"
                   placeholder="Enter bpm..."
-                />
-              </div>
+                /> */}
               <button className={"search-box__button"} type="submit" disabled={isLoading}>
                 SEARCH
               </button>
