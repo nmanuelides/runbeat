@@ -1,19 +1,20 @@
 {
   "files": {
-    "main.css": "./static/css/main.96ce2091.css",
-    "main.js": "./static/js/main.2c1ded2b.js",
+    "main.css": "./static/css/main.e3c6f262.css",
+    "main.js": "./static/js/main.07239ca7.js",
     "static/js/787.e3b3edd7.chunk.js": "./static/js/787.e3b3edd7.chunk.js",
+    "static/media/EudoxusSans-Bold.ttf": "./static/media/EudoxusSans-Bold.77cc3e756b19bad701f3.ttf",
+    "static/media/EudoxusSans-Regular.ttf": "./static/media/EudoxusSans-Regular.17de35e80412f748c6b8.ttf",
     "static/media/halftone2.png": "./static/media/halftone2.fd7c17b3cfdeab7821a0.png",
-    "static/media/wotfard-regular-webfont.ttf": "./static/media/wotfard-regular-webfont.b7585f8e119628c4dfb2.ttf",
     "static/media/RussoOne-Regular.ttf": "./static/media/RussoOne-Regular.b2f5b287ccb8fd446eae.ttf",
     "static/media/default-artist-image.jpg": "./static/media/default-artist-image.f8adcc768bad1906f49a.jpg",
     "index.html": "./index.html",
-    "main.96ce2091.css.map": "./static/css/main.96ce2091.css.map",
-    "main.2c1ded2b.js.map": "./static/js/main.2c1ded2b.js.map",
+    "main.e3c6f262.css.map": "./static/css/main.e3c6f262.css.map",
+    "main.07239ca7.js.map": "./static/js/main.07239ca7.js.map",
     "787.e3b3edd7.chunk.js.map": "./static/js/787.e3b3edd7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.96ce2091.css",
-    "static/js/main.2c1ded2b.js"
+    "static/css/main.e3c6f262.css",
+    "static/js/main.07239ca7.js"
   ]
 }
