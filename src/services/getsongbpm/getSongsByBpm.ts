@@ -36,9 +36,9 @@ const getSongsFromResponse = (response: GSBPMResponse): GSBSong[] => {
 };
 
 export const getSongs = async (bpm: number, genre?: string): Promise<GSBSong[]> => {
-  const url1 = `${baseUrl}bpm=${bpm}`;
-  const url2 = `${baseUrl}bpm=${bpm-1}`;
-  const url3 = `${baseUrl}bpm=${bpm+1}`;
+  const url1 = `${baseUrl}bpm=${bpm}&limit=100`;
+  const url2 = `${baseUrl}bpm=${bpm-1}&limit=100`;
+  const url3 = `${baseUrl}bpm=${bpm+1}&limit=100`;
   const response1 = await fetch(url1);
   const response2 = await fetch(url2);
   const response3 = await fetch(url3);

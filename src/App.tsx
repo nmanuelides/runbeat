@@ -69,10 +69,8 @@ function App() {
     try {
       const searchParam = inputValue ? Number(inputValue) : getSPM(speed, height, speedUnit, heightUnit);
       const results = await getSongs(searchParam);
-      setShowSnackbar(true);
       if (results.length > 0) {
-        setSnackbarMessage("Songs found: " + results.length);
-        setSnackbarType("success");
+        console.log("Songs found: " + results.length);
         setSearchResults(results);
       } else {
         setSnackbarMessage("No songs found");
