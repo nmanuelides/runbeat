@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getContrastyColor } from "../../../helpers/colorHelper";
 import "../styles/desktop.scss";
+import "../styles/mobile.scss";
 
 type TagProps = {
   text: string;
@@ -12,6 +13,7 @@ type TagProps = {
 const Tag = ({ text, selectable, onSelectHandler, bgColor }: TagProps): JSX.Element => {
   const [isSelected, setIsSelected] = useState<boolean>(false);
   const [selectableTagContainerClass, setSelectableTagContainerClass] = useState<string>("");
+  const prevIsSelected = useRef(isSelected);
 
   const getTagBgColor = () => {
     return !selectable ? bgColor : undefined;
@@ -33,13 +35,21 @@ const Tag = ({ text, selectable, onSelectHandler, bgColor }: TagProps): JSX.Elem
     setIsSelected((prevState) => {
       // use the previous state value to calculate the new one
       const newState = !prevState;
-      if (onSelectHandler) {
-        onSelectHandler(text, newState);
-      }
+   
       // return the new state value
       return newState;
     });
   };
+
+  useEffect(() => {
+    // Only call the onSelectHandler function if the isSelected state has changed from the previous value
+    if (onSelectHandler && isSelected !== prevIsSelected.current) {
+        onSelectHandler(text, isSelected);
+      }
+      // Update the prevIsSelected value with the current value
+      prevIsSelected.current = isSelected;
+    }, [isSelected]);
+
   return (
     <div className={`tag-container ${selectableTagContainerClass}`} style={selectableStyle}>
       <span

@@ -29,11 +29,10 @@ function App() {
   const [snackbarType, setSnackbarType] = useState<SnackbarProps["type"]>("error");
   const [heightUnit, setHeightUnit] = useState<"cm" | "in">("cm");
   const [tagsClass, setTagsClass] = useState<string>(DEFAULT_TAGS_CONTAINER_CLASS + "__tags");
-  const [tagsContainerClass, setTagsContainerClass] = useState<string>(DEFAULT_TAGS_CONTAINER_CLASS + "__closed");
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   let speed: number;
   let speedUnit: "kmh" | "mph" = "kmh";
   let height: number;
-  let selectedGenres: string[] = [];
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -74,14 +73,15 @@ function App() {
 
     try {
       const searchParam = inputValue ? Number(inputValue) : getSPM(speed, height, speedUnit, heightUnit);
-      const results = await getSongs(searchParam);
+      const results = await getSongs(searchParam, selectedGenres.length > 0 ? selectedGenres : undefined);
       if (results.length > 0) {
         console.log("Songs found: " + results.length);
         setSearchResults(results);
       } else {
+        setSearchResults(results);
         setSnackbarMessage("No songs found");
         setSnackbarType("error");
-        setSearchResults(results);
+        setShowSnackbar(true);
       }
     } catch (error) {
       setShowSnackbar(true);
@@ -107,21 +107,17 @@ function App() {
 
   const onSelectGenreHandler = (text: string, selected: boolean) => {
     if (selected) {
-      selectedGenres.push(text);
+      setSelectedGenres((prevGenres) => [...prevGenres, text]);
     } else {
-      const indexToDelete = selectedGenres.indexOf(text);
-      if (indexToDelete > -1) selectedGenres.splice(indexToDelete, 1);
+      setSelectedGenres((prevGenres) => prevGenres.filter((genre) => genre !== text));
     }
-    console.log("Selected Genres: ", selectedGenres);
   };
 
   const onSelectGenresButtonClicked = () => {
     if (tagsClass === "tags-container__tags" || tagsClass === "tags-container__tags-closed") {
       setTagsClass("tags-container__tags-open");
-      setTagsContainerClass("tags-container__open");
     } else if (tagsClass === "tags-container__tags-open") {
       setTagsClass("tags-container__tags-closed");
-      setTagsContainerClass("tags-container__closed");
     }
   };
 
@@ -158,7 +154,7 @@ function App() {
           <button className="select-genres-button" onClick={onSelectGenresButtonClicked}>
             Select genres
           </button>
-          <div className={tagsContainerClass}>
+          <div className={DEFAULT_TAGS_CONTAINER_CLASS}>
             <div className={tagsClass}>
               {getSBPMGenres.map((genre) => {
                 return <Tag key={genre} text={genre} selectable={true} onSelectHandler={onSelectGenreHandler} />;

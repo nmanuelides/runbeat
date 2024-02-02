@@ -35,10 +35,10 @@ const getSongsFromResponse = (response: GSBPMResponse): GSBSong[] => {
   return response.tempo;
 };
 
-export const getSongs = async (bpm: number, genre?: string): Promise<GSBSong[]> => {
+export const getSongs = async (bpm: number, genres?: string[]): Promise<GSBSong[]> => {
   const url1 = `${baseUrl}bpm=${bpm}&limit=100`;
-  const url2 = `${baseUrl}bpm=${bpm-1}&limit=100`;
-  const url3 = `${baseUrl}bpm=${bpm+1}&limit=100`;
+  const url2 = `${baseUrl}bpm=${bpm - 1}&limit=100`;
+  const url3 = `${baseUrl}bpm=${bpm + 1}&limit=100`;
   const response1 = await fetch(url1);
   const response2 = await fetch(url2);
   const response3 = await fetch(url3);
@@ -48,7 +48,11 @@ export const getSongs = async (bpm: number, genre?: string): Promise<GSBSong[]> 
   const songs1 = getSongsFromResponse(data1);
   const songs2 = getSongsFromResponse(data2);
   const songs3 = getSongsFromResponse(data3);
-  return interleaveSongsResults(songs1, songs2, songs3);
+  const interleavedSongs = interleaveSongsResults(songs1, songs2, songs3);
+  if (genres) {
+    return filterSongs(interleavedSongs, genres);
+  }
+  return interleavedSongs;
 };
 
 // export const getGenres = async (bpm: number) => {
@@ -74,17 +78,26 @@ function interleaveSongsResults<T>(arr1: GSBSong[], arr2: GSBSong[], arr3: GSBSo
   const maxLength = Math.max(arr1.length, arr2.length, arr3.length);
 
   for (let i = 0; i < maxLength; i++) {
-      if (i < arr1.length) {
-          result.push(arr1[i]);
-      }
-      if (i < arr2.length) {
-          result.push(arr2[i]);
-      }
-      if (i < arr3.length) {
-          result.push(arr3[i]);
-      }
+    if (i < arr1.length) {
+      result.push(arr1[i]);
+    }
+    if (i < arr2.length) {
+      result.push(arr2[i]);
+    }
+    if (i < arr3.length) {
+      result.push(arr3[i]);
+    }
   }
 
   return result;
 }
-const getSongsByBPM = (bpm: number) => {};
+const filterSongs = (songs: GSBSong[], genres: string[]): GSBSong[] => {
+  let filteredSongs: GSBSong[] = [];
+  songs.map((song) => {
+    const songGenres = song.artist.genres;
+    if (songGenres) {
+      songGenres.some((genre) => genres.includes(genre)) && filteredSongs.push(song);
+    }
+  });
+  return filteredSongs;
+};

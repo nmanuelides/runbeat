@@ -55,11 +55,11 @@ const Song = ({ song, userId }: SongProps): JSX.Element => {
           {song.artist.genres ? (
             <div className="song__details-tags-container">
               {song.artist.genres.map((genre) => {
-                return <Tag text={genre} selectable={false} bgColor={getSecondaryColor(data)}></Tag>;
+                return <Tag key={genre} text={genre} selectable={false} bgColor={getSecondaryColor(data)}></Tag>;
               })}
             </div>
           ) : null}
-          <span className="song__details-tempo">{song.tempo}</span>
+          <span className="song__details-tempo">{`BPM: ${song.tempo}`}</span>
         </div>
       </div>
       <button

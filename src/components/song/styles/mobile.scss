@@ -1,16 +1,18 @@
 @media (max-width: 768px) {
     .song {
-        width: 80%;
+        width: 100%;
         &__artist-image {
             width: 90px;
             height: 90px;
         }
         &__info {
-            width: 70%;
+            width: 80%;
         }
-
         &__add-song {
-            width: 30%;
+            width: 20%;
+        }
+        &__details-title {
+            font-size: 1.2rem;
         }
         &__details-tags-container {
             display: flex;

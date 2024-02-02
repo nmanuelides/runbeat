@@ -21,6 +21,7 @@ $border-radius: 12px;
         sans-serif;
     text-align: center;
     z-index: 10000000;
+    animation: showFromBottom 0.4s ease-in-out;
 }
 
 .snackbar-error {

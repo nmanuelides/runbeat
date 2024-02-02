@@ -9,7 +9,7 @@
   border-radius: 16px;
   gap: 8px;
   background: $secondary-color;
-  box-shadow: 0 0 32px rgba($secondary-color, 0.95);
+  box-shadow: 0 0 8px 4px $secondary-color;
   position: relative;
   z-index: 1;
   transition: all 0.7s ease-in-out;
@@ -43,6 +43,10 @@
 
     &-artist-name {
       font-family: 'EudoxusRegular', 'sans-serif';
+    }
+    &-tempo {
+      font-size: 0.8rem;
+      font-weight: 600;
     }
     &-tags-container {
       display: flex;
