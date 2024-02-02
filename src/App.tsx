@@ -14,7 +14,7 @@ import { getSBPMGenres } from "./helpers/genres";
 import Tag from "../src/components/tags/src/Tag";
 
 function App() {
-  const playlistName = "RunBeat Playlist";
+  const BASE_PLAYLIST_NAME = "RunBeat";
   const SPOTIFY_USER_KEY = "spotifyUser";
   const DEFAULT_TAGS_CONTAINER_CLASS = "tags-container";
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -192,7 +192,14 @@ function App() {
         {searchResults.length > 0 && (
           <ul className="results-list">
             {searchResults.map((song) => {
-              return <Song key={song.song_id} song={song} userId={spotifyUser?.id} />;
+              return (
+                <Song
+                  key={song.song_id}
+                  song={song}
+                  userId={spotifyUser?.id}
+                  playlistName={`${BASE_PLAYLIST_NAME} ${speedInputRef.current?.value.trim()}${speedUnit === "kmh" ? "km/h" : speedUnit}`}
+                />
+              );
             })}
           </ul>
         )}

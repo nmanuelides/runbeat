@@ -1,6 +1,6 @@
 import { getStoragedAccessToken, responseOkOrThrowError } from "./authenticationHelper";
-import { Playlist, SpotifyApi, Track, TrackItem } from "@spotify/web-api-ts-sdk";
-import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, scopes } from "./authentication";
+import { SpotifyApi, Track } from "@spotify/web-api-ts-sdk";
+import { CLIENT_ID } from "./authentication";
 
 const PLAYLISTS_LIMIT = 50;
 let spotifyApi: SpotifyApi;
@@ -102,7 +102,11 @@ async function getSong(songName: string, artistName: string) {
     try {
       const formattedSongName: string = cleanSongName(songName);
       const url =
-        "https://api.spotify.com/v1/search?query=track:" + formattedSongName + ", artist:" + artistName + "&type=track&limit=1";
+        "https://api.spotify.com/v1/search?query=track:" +
+        formattedSongName +
+        ", artist:" +
+        artistName +
+        "&type=track&limit=1";
       const response = await fetch(url, {
         headers: {
           Authorization: "Bearer " + accessToken,
@@ -182,9 +186,8 @@ async function addSongToRunBeatPlaylist(playlistId: string, uris: string[]) {
 }
 
 function cleanSongName(songName: string): string {
-  return songName.replace(/'/g, '');
+  return songName.replace(/'/g, "");
 }
-
 
 export async function getCategories() {
   const spotifyApi = createSpotifyApi();

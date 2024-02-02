@@ -12,12 +12,12 @@ import Tag from "../../tags/src/Tag";
 type SongProps = {
   song: GSBSong;
   userId?: string;
+  playlistName: string;
 };
 
 type AddSongState = "idle" | "adding" | "added" | "error";
 
-const Song = ({ song, userId }: SongProps): JSX.Element => {
-  const playlistName = "RunBeat Playlist";
+const Song = ({ song, userId, playlistName }: SongProps): JSX.Element => {
   const options = { crossOrigin: "Anonymous", quality: 80 };
   const { data } = useColor(song.artist.img, "hslString", options);
   const [addSongState, setAddSongState] = useState<AddSongState>("idle");
