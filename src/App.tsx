@@ -10,6 +10,8 @@ import Song from "../src/components/song/src/Song";
 import { ShowSnackbarContext } from "./contexts/showSnackbarContext";
 import Snackbar, { SnackbarProps } from "./components/snackbar/src/Snackbar";
 import { getSPM } from "./helpers/formulaHelper";
+import { getSBPMGenres } from "./helpers/genres";
+import Tag from "../src/components/tags/src/Tag";
 
 function App() {
   const playlistName = "RunBeat Playlist";
@@ -25,9 +27,11 @@ function App() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarType, setSnackbarType] = useState<SnackbarProps["type"]>("error");
   const [heightUnit, setHeightUnit] = useState<"cm" | "in">("cm");
+  const [showGenres, setShowGenres] = useState<boolean>(false);
   let speed: number;
   let speedUnit: "kmh" | "mph" = "kmh";
   let height: number;
+  let selectedGenres: string[] = [];
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -62,8 +66,8 @@ function App() {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const inputValue = inputRef.current?.value;
-    speed = Number(speedInputRef.current?.value);
-    height = Number(heightInputRef.current?.value);
+    speed = Number(speedInputRef.current?.value.trim());
+    height = Number(heightInputRef.current?.value.trim());
     setIsLoading(true);
 
     try {
@@ -99,6 +103,20 @@ function App() {
     );
   };
 
+  const onSelectGenreHandler = (text: string, selected: boolean) => {
+    if (selected) {
+      selectedGenres.push(text);
+    } else {
+      const indexToDelete = selectedGenres.indexOf(text);
+      if (indexToDelete > -1) selectedGenres.splice(indexToDelete, 1);
+    }
+    console.log("Selected Genres: ", selectedGenres);
+  };
+
+  const onSelectGenresButtonClicked = () => {
+    setShowGenres(!showGenres);
+  };
+
   return (
     <ShowSnackbarContext.Provider value={{ showSnackbar, setShowSnackbar }}>
       <div className="App">
@@ -129,6 +147,18 @@ function App() {
               />
             </div>
           </div>
+          <button className="select-genres-button" onClick={onSelectGenresButtonClicked}>
+            Select genres
+          </button>
+          {showGenres && (
+            <div className="tags-container" >
+              <div className="tags-container__tags">
+              {getSBPMGenres.map((genre) => {
+                return <Tag key={genre} text={genre} selectable={true} onSelectHandler={onSelectGenreHandler} />;
+              })}
+              </div>
+            </div>
+          )}
           <div className="search-box__header">
             <div className="search-box__buttons-container">
               {!spotifyIsConnected && (

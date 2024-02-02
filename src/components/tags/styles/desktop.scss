@@ -1,0 +1,54 @@
+@import "../../colors.scss";
+
+.tag-container {
+  display: flex;
+  width: fit-content;
+  min-width: fit-content;
+  padding: 4px;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  background: $dark-accent-color;
+  border-radius: 6px;
+  margin: 4px 3px;
+  overflow: hidden;
+
+  &__selectable-selected {
+    animation: selectedTag 0.2s ease-in-out forwards, pulsingSelectedTag 2s infinite;
+  }
+
+  &__selectable-unselected {
+    animation: unselectTag 0.65s ease-out forwards;
+  }
+
+  &__text {
+    user-select: none;
+    white-space: nowrap;
+    color: $dark-font-color;
+    font-family: "EudoxusBold", "sans-serif";
+    text-align: center;
+    justify-self: center;
+  }
+}
+
+@keyframes selectedTag {
+  100% {
+    background: $accent-color;
+    transform: scale(0.9);
+  }
+}
+
+@keyframes unselectTag {
+  0% {
+    background: $accent-color;
+  }
+  100% {
+    background: $dark-accent-color;
+  }
+}
+
+@keyframes pulsingSelectedTag {
+  50% {
+    box-shadow: 0 0 8px 2px $light-accent-color;
+  }
+}

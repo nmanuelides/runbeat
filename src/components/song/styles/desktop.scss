@@ -44,9 +44,8 @@
     &-artist-name {
       font-family: 'EudoxusRegular', 'sans-serif';
     }
-    &-genres {
-      font-family: 'EudoxusRegular', 'sans-serif';
-      word-break: break-word;
+    &-tags-container {
+      display: flex;
     }
   }
 

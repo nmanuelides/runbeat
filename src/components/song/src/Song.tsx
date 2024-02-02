@@ -7,6 +7,7 @@ import "../styles/mobile.scss";
 import addIcon from "../../../assets/light-plus-icon.png";
 import { getSecondaryColor, getContrastyColor } from "../../../helpers/colorHelper";
 import { addSong } from "../../../services/spotify/spotifyData";
+import Tag from "../../tags/src/Tag";
 
 type SongProps = {
   song: GSBSong;
@@ -51,7 +52,13 @@ const Song = ({ song, userId }: SongProps): JSX.Element => {
         <div className="song__details" style={{ color: getContrastyColor(data) }}>
           <span className="song__details-title">{song.song_title}</span>
           <span className="song__details-artist-name">{song.artist.name}</span>
-          <span className="song__details-genres">{song.artist.genres}</span>
+          {song.artist.genres ? (
+            <div className="song__details-tags-container">
+              {song.artist.genres.map((genre) => {
+                return <Tag text={genre} selectable={false} bgColor={getSecondaryColor(data)}></Tag>;
+              })}
+            </div>
+          ) : null}
           <span className="song__details-tempo">{song.tempo}</span>
         </div>
       </div>
