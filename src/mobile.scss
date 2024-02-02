@@ -22,7 +22,7 @@
   }
 
   .title {
-    font-size: 4rem;
+    font-size: clamp(3rem,18vw,5rem);
   }
   .subtitle {
     font-size: 1.3rem;

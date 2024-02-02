@@ -16,6 +16,7 @@ import Tag from "../src/components/tags/src/Tag";
 function App() {
   const playlistName = "RunBeat Playlist";
   const SPOTIFY_USER_KEY = "spotifyUser";
+  const DEFAULT_TAGS_CONTAINER_CLASS = "tags-container";
   const inputRef = useRef<HTMLInputElement | null>(null);
   const speedInputRef = useRef<HTMLInputElement | null>(null);
   const heightInputRef = useRef<HTMLInputElement | null>(null);
@@ -27,7 +28,8 @@ function App() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarType, setSnackbarType] = useState<SnackbarProps["type"]>("error");
   const [heightUnit, setHeightUnit] = useState<"cm" | "in">("cm");
-  const [showGenres, setShowGenres] = useState<boolean>(false);
+  const [tagsClass, setTagsClass] = useState<string>(DEFAULT_TAGS_CONTAINER_CLASS + "__tags");
+  const [tagsContainerClass, setTagsContainerClass] = useState<string>(DEFAULT_TAGS_CONTAINER_CLASS + "__closed");
   let speed: number;
   let speedUnit: "kmh" | "mph" = "kmh";
   let height: number;
@@ -114,7 +116,13 @@ function App() {
   };
 
   const onSelectGenresButtonClicked = () => {
-    setShowGenres(!showGenres);
+    if (tagsClass === "tags-container__tags" || tagsClass === "tags-container__tags-closed") {
+      setTagsClass("tags-container__tags-open");
+      setTagsContainerClass("tags-container__open");
+    } else if (tagsClass === "tags-container__tags-open") {
+      setTagsClass("tags-container__tags-closed");
+      setTagsContainerClass("tags-container__closed");
+    }
   };
 
   return (
@@ -150,15 +158,13 @@ function App() {
           <button className="select-genres-button" onClick={onSelectGenresButtonClicked}>
             Select genres
           </button>
-          {showGenres && (
-            <div className="tags-container" >
-              <div className="tags-container__tags">
+          <div className={tagsContainerClass}>
+            <div className={tagsClass}>
               {getSBPMGenres.map((genre) => {
                 return <Tag key={genre} text={genre} selectable={true} onSelectHandler={onSelectGenreHandler} />;
               })}
-              </div>
             </div>
-          )}
+          </div>
           <div className="search-box__header">
             <div className="search-box__buttons-container">
               {!spotifyIsConnected && (
