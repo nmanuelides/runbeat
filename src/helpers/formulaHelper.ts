@@ -7,11 +7,14 @@ export function kmhToMph(kmh: number): number {
 }
 
 export function getPace(mphSpeed: number): number {
-  return mphSpeed / 60;
+  return 60 / mphSpeed;
 }
 
 export function getSPM(speed: number, height: number, speedUnit: "kmh" | "mph", heightUnit: "cm" | "in"): number {
   let convertedSpeed = speedUnit === "mph" ? speed : kmhToMph(speed);
   let convertedHeight = heightUnit === "in" ? height : cmToIn(height);
-  return Math.round(1084 + (143.6 * getPace(convertedSpeed) - 13.5 * convertedHeight));
+  const pace = getPace(convertedSpeed);
+  const spm = Math.round((1084 + (143.6 * pace - 13.5 * convertedHeight)) / pace);
+  const adjustedSPM = Math.round(spm - spm * (3 / 100)); //spm minus 3%
+  return adjustedSPM;
 }
