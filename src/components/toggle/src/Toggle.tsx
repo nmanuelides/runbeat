@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/desktop.scss";
 import "../styles/mobile.scss";
 
-export type ToggleType = 'speed' | 'height';
+export type ToggleType = 'speed' | 'height' | 'general';
 type ToggleProps = {
   state?: boolean;
   title?: string;

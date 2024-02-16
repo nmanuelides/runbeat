@@ -27,13 +27,12 @@ body::-webkit-scrollbar {
   width: 15px;
   background-color: $dark-font-color;
   box-shadow: 0 0 4px rgba(black, 0.4) inset;
-
 }
 
 body::-webkit-scrollbar-thumb {
   border-radius: 16px;
   background: linear-gradient(130deg, $accent-color 20%, $dark-accent-color 100%) padding-box,
-  linear-gradient(130deg, #ff459f 20%, transparent 100%) border-box;
+    linear-gradient(130deg, #ff459f 20%, transparent 100%) border-box;
   box-shadow: 0 0 4px black;
   border: 1px solid transparent;
 }
@@ -57,12 +56,11 @@ body::-webkit-scrollbar-thumb {
   width: 100svw;
   height: 100%;
   background-image: url("./assets/halftone2.png");
-  background-size: percentage(0.5);
+  background-size: percentage(1.5);
   filter: invert(0.5);
   mix-blend-mode: multiply;
   opacity: 0.1;
 }
-
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
