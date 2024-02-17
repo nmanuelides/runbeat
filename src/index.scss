@@ -67,12 +67,57 @@ code {
 }
 
 .footer-link {
-  color: $dark-font-color;
-  font-size: 1rem;
-  font-weight: 600;
-  bottom: 2%;
+  color: $light-font-color;
+  font-size: 0.8rem;
+  font-weight: 400;
   margin-top: auto;
+  margin-bottom: 1rem;
   text-decoration: none;
   cursor: pointer;
   z-index: 1000;
+}
+
+.header-container {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 2px solid $accent-color;
+  width: 100vw;
+  height: 500px;
+  background-image: url("./assets//runningBg.png");
+  background-size: cover;
+  background-position: left 0 top 0;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.75) inset;
+
+  .title-container {
+    display: flex;
+    flex-direction: column;
+    .title {
+      font-family: "RussoOne", "sans-serif";
+      margin-left: -32px;
+      font-size: 8rem;
+      font-weight: 800;
+      color: $accent-color;
+      background: linear-gradient(130deg, $accent-color 0%, $dark-accent-color 100%) padding-box,
+        linear-gradient(130deg, #ff459f 0%, transparent 100%) border-box;
+      background-clip: text;
+      text-shadow: 2px 2px 8px rgba(black, 0.35);
+      line-height: 1;
+      z-index: 2;
+    }
+
+    .subtitle {
+      align-self: flex-start;
+      font-family: "RussoOne", "sans-serif";
+      margin-left: -32px;
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: $light-font-color;
+      text-shadow: 0 0 4px rgba(black, 0.5);
+      z-index: 2;
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.scss";
-// import './mobile.scss';
+//import './mobile.scss';
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Cursor from "./components/cursor/src/Cursor";
@@ -11,6 +11,12 @@ root.render(
   <>
     <Cursor />
     <div className="main-container">
+      <div className="header-container">
+        <div className="title-container">
+          <header className="title">RUNBEAT.</header>
+          <h1 className="subtitle">Run to the beat</h1>
+        </div>
+      </div>
       <App />
       <a className="footer-link" href="https://getsongbpm.com/" target="blank">
         Powered by getSongBPM

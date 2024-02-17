@@ -132,8 +132,6 @@ function App() {
   return (
     <ShowSnackbarContext.Provider value={{ showSnackbar, setShowSnackbar }}>
       <div className="App">
-        <header className="title">RUNBEAT.</header>
-        <h1 className="subtitle">Run to the beat</h1>
         <div className={"search-box"}>
           <div className="tools-container">
             <div className="setting-container">
@@ -182,7 +180,7 @@ function App() {
             </div>
           </div>
           <form className="search-box__form" onSubmit={onSubmit}>
-            <span>Search by:</span>
+            {/*<span>Search by:</span>
             <div className="search-box__selector-container">
               <button
                 type="button"
@@ -194,7 +192,7 @@ function App() {
               <button type="button" className="bpm-button" onClick={() => setSearchByName(false)}>
                 BPM
               </button>
-            </div>
+              </div>*/}
             <div className={"search-box__input-container"}>
               <input
                 name="songNameInput"
@@ -204,7 +202,7 @@ function App() {
                 autoComplete="off"
                 placeholder="Enter song name or bpm..."
               />
-              {searchByName && (
+              {/*searchByName && (
                 <input
                   name="artistNameInput"
                   className={isLoading ? "search-box__input-text-disabled" : "search-box__input-text"}
@@ -213,7 +211,7 @@ function App() {
                   autoComplete="off"
                   placeholder="Enter artist name..."
                 />
-              )}
+              )*/}
               <button className={"search-box__button"} type="submit" disabled={isLoading}>
                 SEARCH
               </button>

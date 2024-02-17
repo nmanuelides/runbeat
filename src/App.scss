@@ -20,45 +20,27 @@
   flex-direction: column;
   align-items: flex-start;
   width: 700px;
-  margin-top: 128px;
-}
-
-.title {
-  font-family: "RussoOne", "sans-serif";
-  margin-left: -32px;
-  font-size: 8rem;
-  font-weight: 800;
-  color: $light-font-color;
-  line-height: 1;
-  z-index: 2;
-}
-
-.subtitle {
-  font-family: "RussoOne", "sans-serif";
-  margin-left: -32px;
-  margin-top: 0;
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: $primary-color;
-  margin-bottom: 100px;
-  z-index: 2;
+  margin-top: 25%;
 }
 
 .search-box {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
   align-self: center;
   align-items: center;
-  background: linear-gradient(120deg, $primary-color -35%, rgba($secondary-color, 0.5) 70%);
+  background: linear-gradient(120deg, $primary-color -35%, rgba($secondary-color, 0.5) 70%) padding-box;
   width: 100%;
   height: fit-content;
   margin-bottom: 16px;
   padding: 32px;
+  border: 1px solid transparent;
   border-radius: 16px;
-  box-shadow: 0 0 32px rgba($secondary-color, 0.95);
+  box-shadow: 0 0 16px black;
   transition: height 0.2s ease-in-out;
+  backdrop-filter: blur(10px);
 
   &__header {
     display: flex;
@@ -263,7 +245,6 @@
 
 .tools-container {
   display: flex;
-  justify-content: flex-start;
   width: 100%;
   margin: 0;
   margin-bottom: 32px;
