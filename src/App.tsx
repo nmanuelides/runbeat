@@ -76,12 +76,12 @@ function App() {
 
     try {
       // const searchParam = inputValue ? Number(inputValue) : getSPM(speed, height, speedUnit, heightUnit);
-      const searchParam = inputValue ? inputValue : "";
+      const searchParam = inputValue ? Number(inputValue) : getSPM(speed, height, speedUnit, heightUnit);
       const artistNameParam = artistNameInputValue ? artistNameInputValue : "";
-      // const results = await getSongs(searchParam, selectedGenres.length > 0 ? selectedGenres : undefined);
-      const results = searchByName
+      const results = await getSongs(searchParam, selectedGenres.length > 0 ? selectedGenres : undefined);
+      /*const results = searchByName
         ? await getSongBySongName(searchParam, artistNameParam)
-        : await getSongs(Number(searchParam));
+        : await getSongs(Number(searchParam));*/
       if (results.length > 0) {
         console.log("Songs found: " + results.length);
         setSearchResults(results);
@@ -180,8 +180,8 @@ function App() {
             </div>
           </div>
           <form className="search-box__form" onSubmit={onSubmit}>
-            {/*<span>Search by:</span>
-            <div className="search-box__selector-container">
+            <span>Search by:</span>
+            {/*<div className="search-box__selector-container">
               <button
                 type="button"
                 className={searchByName ? "name-button-selected" : "name-button"}
