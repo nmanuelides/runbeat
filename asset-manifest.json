@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "./static/css/main.3a1977c7.css",
-    "main.js": "./static/js/main.c155a5ee.js",
+    "main.css": "./static/css/main.772e74e7.css",
+    "main.js": "./static/js/main.cedd3a65.js",
     "static/js/592.b140ba30.chunk.js": "./static/js/592.b140ba30.chunk.js",
+    "static/media/runningBg.png": "./static/media/runningBg.fcf0c65cd4bc3c31284d.png",
     "static/media/EudoxusSans-Bold.ttf": "./static/media/EudoxusSans-Bold.77cc3e756b19bad701f3.ttf",
     "static/media/EudoxusSans-Regular.ttf": "./static/media/EudoxusSans-Regular.17de35e80412f748c6b8.ttf",
     "static/media/halftone2.png": "./static/media/halftone2.fd7c17b3cfdeab7821a0.png",
     "static/media/RussoOne-Regular.ttf": "./static/media/RussoOne-Regular.b2f5b287ccb8fd446eae.ttf",
     "static/media/default-artist-image.jpg": "./static/media/default-artist-image.f8adcc768bad1906f49a.jpg",
     "index.html": "./index.html",
-    "main.3a1977c7.css.map": "./static/css/main.3a1977c7.css.map",
-    "main.c155a5ee.js.map": "./static/js/main.c155a5ee.js.map",
+    "main.772e74e7.css.map": "./static/css/main.772e74e7.css.map",
+    "main.cedd3a65.js.map": "./static/js/main.cedd3a65.js.map",
     "592.b140ba30.chunk.js.map": "./static/js/592.b140ba30.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3a1977c7.css",
-    "static/js/main.c155a5ee.js"
+    "static/css/main.772e74e7.css",
+    "static/js/main.cedd3a65.js"
   ]
 }
