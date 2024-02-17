@@ -7,8 +7,8 @@ import {
 export const SPOTIFY_ACCESS_TOKEN = "spotifyAccessToken";
 export const CLIENT_ID = "568e590db3bc49a1b13394b284de1d41";
 export const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
-export const REDIRECT_URL = "http://localhost:3000/";
-// export const REDIRECT_URL = "https://nmanuelides.github.io/runbeat/";
+// export const REDIRECT_URL = "http://localhost:3000/";
+export const REDIRECT_URL = "https://nmanuelides.github.io/runbeat/";
 export const scopes = ["user-read-private", "playlist-modify-public", "playlist-modify-private", "ugc-image-upload"];
 const EXPIRED_ACCESS_TOKEN_ERROR = "Authorization code expired";
 
