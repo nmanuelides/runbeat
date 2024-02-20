@@ -1,0 +1,15 @@
+@media (max-width: 768px) {
+  .search {
+    &__form {
+      width: 80%;
+    }
+
+    &__input-text {
+      font-size: 1rem;
+    }
+
+    &__input-text-disabled {
+      font-size: 1rem;
+    }
+  }
+}
