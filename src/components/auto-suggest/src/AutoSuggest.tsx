@@ -1,4 +1,4 @@
-import { useRef, useState, useContext } from "react";
+import { useContext } from "react";
 import { SearchFormContext } from "../../../contexts/searchFormContext";
 import Tags from "../../tags/src/Tags";
 import "../styles/desktop.scss";
