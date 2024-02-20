@@ -79,10 +79,10 @@ function App() {
       let results: GSBSong[] = [];
       if (songBPM) {
         results = await getSongs(songBPM);
+      } else if (songName && artistName) {
+        results = await getSongBySongName(songName, artistName);
       } else {
-        if (songName && artistName) {
-          results = await getSongBySongName(songName, artistName);
-        }
+        results = await getSongs(getSPM(speed, height, speedUnit, heightUnit));
       }
       searchParam = getSPM(speed, height, speedUnit, heightUnit);
       if (results.length > 0) {
