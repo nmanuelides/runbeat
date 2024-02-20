@@ -63,22 +63,28 @@ function App() {
     }
   };
 
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (
+    event: React.FormEvent<HTMLFormElement>,
+    songName?: string,
+    artistName?: string,
+    songBPM?: number
+  ) => {
     event.preventDefault();
-    const inputValue = songNameinputRef.current?.value;
-    const artistNameInputValue = artistNameinputRef.current?.value;
     speed = Number(speedInputRef.current?.value.trim());
     height = Number(heightInputRef.current?.value.trim());
     setIsLoading(true);
 
     try {
-      // const searchParam = inputValue ? Number(inputValue) : getSPM(speed, height, speedUnit, heightUnit);
-      const searchParam = inputValue ? Number(inputValue) : getSPM(speed, height, speedUnit, heightUnit);
-      const artistNameParam = artistNameInputValue ? artistNameInputValue : "";
-      const results = await getSongs(searchParam, selectedGenres.length > 0 ? selectedGenres : undefined);
-      /*const results = searchByName
-        ? await getSongBySongName(searchParam, artistNameParam)
-        : await getSongs(Number(searchParam));*/
+      let searchParam: string | number;
+      let results: GSBSong[] = [];
+      if (songBPM) {
+        results = await getSongs(songBPM);
+      } else {
+        if (songName && artistName) {
+          results = await getSongBySongName(songName, artistName);
+        }
+      }
+      searchParam = getSPM(speed, height, speedUnit, heightUnit);
       if (results.length > 0) {
         console.log("Songs found: " + results.length);
         setSearchResults(results);

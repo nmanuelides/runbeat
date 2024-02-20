@@ -10,8 +10,20 @@ const Search = ({ isSongNameSearch }: SearchProps) => {
   const songNameinputRef = useRef<HTMLInputElement | null>(null);
   const artistNameinputRef = useRef<HTMLInputElement | null>(null);
   const { isLoading, onSubmit } = useContext(SearchFormContext);
+
+  const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    if (isSongNameSearch) {
+      const songName = songNameinputRef.current?.value;
+      const artistName = artistNameinputRef.current?.value;
+      onSubmit(event, songName, artistName);
+    } else {
+      const songBPM: string | undefined = songNameinputRef.current?.value;
+      onSubmit(event, undefined, undefined, Number(songBPM));
+    }
+  };
+
   return (
-    <form className="search__form" onSubmit={onSubmit}>
+    <form className="search__form" onSubmit={onSubmitHandler}>
       <input
         name="songNameInput"
         className={isLoading ? "search__input-text-disabled" : "search__input-text"}
