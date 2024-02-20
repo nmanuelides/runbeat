@@ -1,0 +1,78 @@
+@import "../../colors.scss";
+.tabs {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% + 64px);
+  margin-left: -31px;
+  margin-right: -32px;
+
+  .navItems {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 48px;
+    padding: 0;
+    gap: 2px;
+    list-style-type: none;
+    color: $light-font-color;
+    li {
+      display: flex;
+      align-items: center;
+      border: 1px solid transparent;
+      border-radius: 6px 6px 0 0;
+      padding: 8px;
+      position: relative;
+      box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.35);
+      font-family: "EudoxusRegular", "sans-serif";
+      cursor: pointer;
+    }
+
+    .active {
+      background: linear-gradient(130deg, rgba(white, 0.2) -50%, transparent 100%);
+      box-shadow: 0 -1px 8px rgba(0, 0, 0, 0.55);
+    }
+
+    .active:after {
+      content: "";
+      position: absolute;
+      background: $accent-color;
+      width: 100%;
+      height: 6px;
+      bottom: -13%;
+      left: 0%;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.85) inset;
+    }
+  }
+
+  .navItems::after {
+    content: "";
+    position: absolute;
+    bottom: -10%;
+    left: 0;
+    height: 6px;
+    width: 100%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.65) inset;
+  }
+
+  .tabsContentContainer {
+    display: flex;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    span {
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+      color: $light-font-color;
+      text-shadow: 0 0 4px black;
+      margin-bottom: 8px;
+    }
+    .tabContent {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,78 @@
+@import "../../colors.scss";
+
+.search {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+    width: 60%;
+    align-items: center;
+    gap: 32px;
+  }
+  &__input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    gap: 16px;
+    z-index: 3;
+  }
+
+  &__input-text {
+    width: calc(100% - 32px);
+    font-family: "EudoxusRegular", "sans-serif";
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 12px;
+    outline: none;
+    border: none;
+    padding: 16px;
+    z-index: 3;
+  }
+
+  &__input-text::placeholder {
+    font-family: "EudoxusRegular", "sans-serif";
+    font-style: italic;
+  }
+
+  &__input-text-disabled {
+    height: 32px;
+    border-radius: 12px;
+    outline: none;
+    border: none;
+    padding: 16px;
+    font-size: 1.2rem;
+  }
+
+  &__button {
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 16px;
+    font-family: "EudoxusBold", "sans-serif";
+    font-size: 1.2rem;
+    padding: 16px;
+    background: linear-gradient(130deg, $accent-color 0%, $dark-accent-color 100%) padding-box,
+      linear-gradient(130deg, #ff459f 20%, transparent 100%) border-box;
+    box-shadow: 0 0 4px black;
+    color: white;
+    cursor: pointer;
+    z-index: 3;
+  }
+
+  &__button:disabled {
+    cursor: wait;
+    border: none;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 16px;
+    background: $secondary-color;
+    color: $primary-color;
+  }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

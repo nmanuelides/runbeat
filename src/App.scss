@@ -20,7 +20,7 @@
   flex-direction: column;
   align-items: flex-start;
   width: 700px;
-  margin-top: 25%;
+  margin-top: 17.5%;
 }
 
 .search-box {
@@ -68,81 +68,6 @@
     }
   }
 
-  &__selector-container {
-    width: fit-content;
-    border: 1px solid transparent;
-    border-radius: 16px;
-    font-family: "EudoxusBold", "sans-serif";
-    font-size: 1.2rem;
-    background: linear-gradient(130deg, $accent-color 0%, $dark-accent-color 100%) padding-box,
-      linear-gradient(130deg, #ff459f 20%, transparent 100%) border-box;
-    box-shadow: 0 0 4px black;
-    color: white;
-    cursor: pointer;
-    z-index: 3;
-    margin-bottom: 32px;
-
-    .name-button {
-      border-radius: 16px 0 0 16px;
-      border: none;
-      font-family: "EudoxusBold", "sans-serif";
-      font-size: 1rem;
-      padding: 16px;
-      background: transparent;
-      color: white;
-      cursor: pointer;
-      z-index: 3;
-    }
-
-    .name-button:active,
-    .name-button:focus {
-      background: linear-gradient(130deg, $accent-color 0%, $dark-accent-color 100%) padding-box,
-        linear-gradient(130deg, #ff459f 20%, transparent 100%) border-box;
-      box-shadow: 2px 2px 4px rgba(black, 0.5) inset;
-    }
-
-    .name-button-selected {
-      @extend .name-button;
-      background: linear-gradient(130deg, $accent-color 0%, $dark-accent-color 100%) padding-box,
-        linear-gradient(130deg, #ff459f 20%, transparent 100%) border-box;
-      box-shadow: 2px 2px 4px rgba(black, 0.5) inset;
-    }
-
-    .bpm-button {
-      border-radius: 0 16px 16px 0;
-      border: none;
-      font-family: "EudoxusBold", "sans-serif";
-      font-size: 1rem;
-      padding: 16px;
-      background: transparent;
-      color: white;
-      cursor: pointer;
-      z-index: 3;
-    }
-
-    .bpm-button:active,
-    :focus {
-      background: linear-gradient(130deg, #a50a55 0%, rgba(black, 0.8) 100%) padding-box,
-        linear-gradient(130deg, #ff459f 20%, transparent 100%) border-box;
-      box-shadow: 2px 2px 4px rgba(black, 0.5) inset;
-    }
-  }
-
-  &__form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    span {
-      text-align: center;
-      font-size: 1rem;
-      font-weight: 600;
-      color: $light-font-color;
-      text-shadow: 0 0 4px black;
-      margin-bottom: 8px;
-    }
-  }
-
   &__input-container {
     display: flex;
     flex-direction: column;
@@ -178,7 +103,7 @@
   }
 
   &__button {
-    width: 100%;
+    width: 70%;
     border: 1px solid transparent;
     border-radius: 16px;
     font-family: "EudoxusBold", "sans-serif";
@@ -280,46 +205,6 @@
   }
 }
 
-.tags-container {
-  display: block;
-  margin-bottom: 32px;
-
-  &__tags {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    max-width: 100%;
-    max-height: 0;
-    overflow: hidden;
-  }
-  &__tags-open {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    max-width: 100%;
-    animation: showTagContainer 0.6s ease-in-out forwards;
-    overflow: hidden;
-  }
-  &__tags-closed {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    max-width: 100%;
-    max-height: 0;
-    animation: hideTagContainer 0.6s ease-in-out;
-    overflow: hidden;
-  }
-  .closed {
-    animation: hideTagContainer 0.6s ease-in-out;
-  }
-}
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 .select-genres-button {
   border: 1px solid transparent;
   border-radius: 12px;
@@ -333,37 +218,4 @@ input[type="number"]::-webkit-outer-spin-button {
   color: white;
   cursor: pointer;
   z-index: 3;
-}
-
-@keyframes showTagContainer {
-  0% {
-    max-height: 0;
-    opacity: 0;
-  }
-
-  66% {
-    opacity: 1;
-  }
-
-  100% {
-    margin-top: 32px;
-    max-height: 200px;
-  }
-}
-
-@keyframes hideTagContainer {
-  0% {
-    margin-top: 32px;
-    max-height: 185px;
-    opacity: 1;
-  }
-
-  66% {
-    opacity: 1;
-  }
-
-  100% {
-    margin-top: 0;
-    max-height: 0;
-  }
 }
