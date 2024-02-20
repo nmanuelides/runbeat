@@ -1,5 +1,6 @@
 import { useRef, useContext } from "react";
 import { SearchFormContext } from "../../../contexts/searchFormContext";
+import Tags from "../../tags/src/Tags";
 import "../styles/desktop.scss";
 
 type SearchProps = {
@@ -24,6 +25,7 @@ const Search = ({ isSongNameSearch }: SearchProps) => {
 
   return (
     <form className="search__form" onSubmit={onSubmitHandler}>
+      {!isSongNameSearch && <Tags />}
       <input
         name="songNameInput"
         className={isLoading ? "search__input-text-disabled" : "search__input-text"}

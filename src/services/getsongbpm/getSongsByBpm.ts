@@ -40,7 +40,7 @@ export const getSongBySongName = async (songName: string, artistName: string) =>
   const url = `${baseSearchUrl}type=both&lookup=song:${songName}artist:${artistName}`;
   const response = await fetch(url);
   const data = await response.json();
-  
+
   return data.search;
 };
 
@@ -66,27 +66,11 @@ export const getSongs = async (bpm: number, genres?: string[]): Promise<GSBSong[
   const songs2 = getSongsFromResponse(data2);
   const songs3 = getSongsFromResponse(data3);
   const interleavedSongs = interleaveSongsResults(songs1, songs2, songs3);
-  if (genres) {
+  if (genres && genres.length > 0) {
     return filterSongs(interleavedSongs, genres);
   }
   return interleavedSongs;
 };
-
-// export const getGenres = async (bpm: number) => {
-//   const songs: GSBSong[] = await getSongs(bpm);
-//   const genres: string[] = [];
-//   if (songs.length > 0) {
-//     songs.forEach((song: GSBSong) => {
-//       song.artist.genres &&
-//         song.artist.genres.forEach((genre: string) => {
-//           if (!genres.includes(genre)) {
-//             genres.push(genre);
-//           }
-//         });
-//     });
-//     console.log(`Found ${genres.length} genres: `, genres);
-//   }
-// };
 
 function interleaveSongsResults<T>(arr1: GSBSong[], arr2: GSBSong[], arr3: GSBSong[]): GSBSong[] {
   const result: GSBSong[] = [];

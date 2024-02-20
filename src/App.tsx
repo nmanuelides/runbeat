@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import "./App.scss";
 import "./mobile.scss";
-import { getSongs, getSongByArtistName, getSongBySongName, GSBSong } from "../src/services/getsongbpm/getSongsByBpm";
+import { getSongs, getSongBySongName, GSBSong } from "../src/services/getsongbpm/getSongsByBpm";
 import { login, getAccessToken } from "../src/services/spotify/authentication";
 import { SpotifyUser, getSpotifyUser } from "./services/spotify/spotifyData";
 import { isUserAuthenticated } from "./services/spotify/authenticationHelper";
@@ -9,6 +9,7 @@ import Toggle, { ToggleType } from "./components/toggle/src/Toggle";
 import Song from "../src/components/song/src/Song";
 import { ShowSnackbarContext } from "./contexts/showSnackbarContext";
 import { SearchFormContext } from "./contexts/searchFormContext";
+import { GenresContext } from "./contexts/genresContext";
 import Snackbar, { SnackbarProps } from "./components/snackbar/src/Snackbar";
 import { getSPM } from "./helpers/formulaHelper";
 import TabsContainer from "./components/tabs-container/src/TabsContainer";
@@ -16,8 +17,6 @@ import TabsContainer from "./components/tabs-container/src/TabsContainer";
 function App() {
   const BASE_PLAYLIST_NAME = "RunBeat";
   const SPOTIFY_USER_KEY = "spotifyUser";
-  const songNameinputRef = useRef<HTMLInputElement | null>(null);
-  const artistNameinputRef = useRef<HTMLInputElement | null>(null);
   const speedInputRef = useRef<HTMLInputElement | null>(null);
   const heightInputRef = useRef<HTMLInputElement | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -78,11 +77,14 @@ function App() {
       let searchParam: string | number;
       let results: GSBSong[] = [];
       if (songBPM) {
-        results = await getSongs(songBPM);
+        //Search by BPM
+        results = await getSongs(songBPM, selectedGenres);
       } else if (songName && artistName) {
+        //Search by song name
         results = await getSongBySongName(songName, artistName);
       } else {
-        results = await getSongs(getSPM(speed, height, speedUnit, heightUnit));
+        //Auto Suggest
+        results = await getSongs(getSPM(speed, height, speedUnit, heightUnit), selectedGenres);
       }
       searchParam = getSPM(speed, height, speedUnit, heightUnit);
       if (results.length > 0) {
@@ -117,64 +119,66 @@ function App() {
   };
 
   return (
-    <SearchFormContext.Provider value={{ isLoading, onSubmit }}>
-      <ShowSnackbarContext.Provider value={{ showSnackbar, setShowSnackbar }}>
-        <div className="App">
-          <div className={"search-box"}>
-            <div className="tools-container">
-              <div className="setting-container">
-                <Toggle title="Speed" type="speed" handleToggle={handleToggle} />
-                <input
-                  name="speedInput"
-                  className="setting-container__input"
-                  type="number"
-                  ref={speedInputRef}
-                  autoComplete="off"
-                  placeholder="i.e: 8"
-                />
-              </div>
-              <div className="setting-container">
-                <Toggle title="Height" type="height" handleToggle={handleToggle} />
-                <input
-                  name="heightInput"
-                  className="setting-container__input"
-                  type="number"
-                  ref={heightInputRef}
-                  autoComplete="off"
-                  placeholder={heightUnit === "cm" ? "i.e: 178" : "i.e 70.7"}
-                />
-              </div>
-            </div>
-            {!spotifyIsConnected && (
-              <div className="search-box__buttons-container">
-                <button className="spotify-login-button" onClick={login} type="button">
-                  Connect to Spotify
-                </button>
-                <span>Connect to your spotify account to create a playlist and start adding songs!</span>
-              </div>
-            )}
-            <TabsContainer />
-          </div>
-          {searchResults.length > 0 && (
-            <ul className="results-list">
-              {searchResults.map((song) => {
-                return (
-                  <Song
-                    key={song.song_id}
-                    song={song}
-                    userId={spotifyUser?.id}
-                    playlistName={`${BASE_PLAYLIST_NAME} ${speedInputRef.current?.value.trim()}${
-                      speedUnit === "kmh" ? "km/h" : speedUnit
-                    }`}
+    <GenresContext.Provider value={{ selectedGenres, setSelectedGenres }}>
+      <SearchFormContext.Provider value={{ isLoading, onSubmit }}>
+        <ShowSnackbarContext.Provider value={{ showSnackbar, setShowSnackbar }}>
+          <div className="App">
+            <div className={"search-box"}>
+              <div className="tools-container">
+                <div className="setting-container">
+                  <Toggle title="Speed" type="speed" handleToggle={handleToggle} />
+                  <input
+                    name="speedInput"
+                    className="setting-container__input"
+                    type="number"
+                    ref={speedInputRef}
+                    autoComplete="off"
+                    placeholder="i.e: 8"
                   />
-                );
-              })}
-            </ul>
-          )}
-        </div>
-        <Snackbar message={snackbarMessage} type={snackbarType} />
-      </ShowSnackbarContext.Provider>
-    </SearchFormContext.Provider>
+                </div>
+                <div className="setting-container">
+                  <Toggle title="Height" type="height" handleToggle={handleToggle} />
+                  <input
+                    name="heightInput"
+                    className="setting-container__input"
+                    type="number"
+                    ref={heightInputRef}
+                    autoComplete="off"
+                    placeholder={heightUnit === "cm" ? "i.e: 178" : "i.e 70.7"}
+                  />
+                </div>
+              </div>
+              {!spotifyIsConnected && (
+                <div className="search-box__buttons-container">
+                  <button className="spotify-login-button" onClick={login} type="button">
+                    Connect to Spotify
+                  </button>
+                  <span>Connect to your spotify account to create a playlist and start adding songs!</span>
+                </div>
+              )}
+              <TabsContainer />
+            </div>
+            {searchResults.length > 0 && (
+              <ul className="results-list">
+                {searchResults.map((song) => {
+                  return (
+                    <Song
+                      key={song.song_id}
+                      song={song}
+                      userId={spotifyUser?.id}
+                      playlistName={`${BASE_PLAYLIST_NAME} ${speedInputRef.current?.value.trim()}${
+                        speedUnit === "kmh" ? "km/h" : speedUnit
+                      }`}
+                    />
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+          <Snackbar message={snackbarMessage} type={snackbarType} />
+        </ShowSnackbarContext.Provider>
+      </SearchFormContext.Provider>
+    </GenresContext.Provider>
   );
 }
 

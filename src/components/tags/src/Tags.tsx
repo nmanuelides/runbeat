@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Tag from "./Tag";
 import { getSBPMGenres } from "../../../helpers/genres";
+import { GenresContext } from "../../../contexts/genresContext";
 
 const Tags = () => {
   const DEFAULT_TAGS_CONTAINER_CLASS = "tags-container";
   const [tagsClass, setTagsClass] = useState<string>(DEFAULT_TAGS_CONTAINER_CLASS + "__tags");
-  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const { selectedGenres, setSelectedGenres } = useContext(GenresContext);
+
   const onSelectGenresButtonClicked = () => {
     if (tagsClass === "tags-container__tags" || tagsClass === "tags-container__tags-closed") {
       setTagsClass("tags-container__tags-open");
