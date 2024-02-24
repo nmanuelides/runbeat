@@ -25,7 +25,7 @@ const Tags = () => {
   };
   return (
     <div className={DEFAULT_TAGS_CONTAINER_CLASS}>
-      <button className="select-genres-button" onClick={onSelectGenresButtonClicked}>
+      <button className="select-genres-button" type="button" onClick={onSelectGenresButtonClicked}>
         Select genres
       </button>
       <div className={tagsClass}>

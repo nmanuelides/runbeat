@@ -33,7 +33,7 @@ const Search = ({ isSongNameSearch }: SearchProps) => {
         type={isSongNameSearch ? "text" : "number"}
         ref={songNameinputRef}
         autoComplete="off"
-        placeholder="Enter song name or bpm..."
+        placeholder={isSongNameSearch ? "Enter song name" : "Enter song bpm..."}
       />
       {isSongNameSearch && (
         <input

@@ -161,16 +161,18 @@ function App() {
             {searchResults.length > 0 && (
               <ul className="results-list">
                 {searchResults.map((song) => {
-                  return (
-                    <Song
-                      key={song.song_id}
-                      song={song}
-                      userId={spotifyUser?.id}
-                      playlistName={`${BASE_PLAYLIST_NAME} ${speedInputRef.current?.value.trim()}${
-                        speedUnit === "kmh" ? "km/h" : speedUnit
-                      }`}
-                    />
-                  );
+                  if(song) {
+                    return (
+                      <Song
+                        key={song.song_id}
+                        song={song}
+                        userId={spotifyUser?.id}
+                        playlistName={`${BASE_PLAYLIST_NAME} ${speedInputRef.current?.value.trim()}${
+                          speedUnit === "kmh" ? "km/h" : speedUnit
+                        }`}
+                      />
+                    );
+                  }
                 })}
               </ul>
             )}

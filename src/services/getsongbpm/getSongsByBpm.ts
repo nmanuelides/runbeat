@@ -53,9 +53,10 @@ export const getSongByArtistName = async (artistName: string) => {
 };
 
 export const getSongs = async (bpm: number, genres?: string[]): Promise<GSBSong[]> => {
-  const url1 = `${baseTempoUrl}bpm=${bpm}&limit=100`;
-  const url2 = `${baseTempoUrl}bpm=${bpm - 1}&limit=100`;
-  const url3 = `${baseTempoUrl}bpm=${bpm + 1}&limit=100`;
+  const limit = "50";
+  const url1 = `${baseTempoUrl}bpm=${bpm}&limit=${limit}`;
+  const url2 = `${baseTempoUrl}bpm=${bpm - 1}&limit=${limit}`;
+  const url3 = `${baseTempoUrl}bpm=${bpm + 1}&limit=${limit}`;
   const response1 = await fetch(url1);
   const response2 = await fetch(url2);
   const response3 = await fetch(url3);
@@ -65,39 +66,87 @@ export const getSongs = async (bpm: number, genres?: string[]): Promise<GSBSong[
   const songs1 = getSongsFromResponse(data1);
   const songs2 = getSongsFromResponse(data2);
   const songs3 = getSongsFromResponse(data3);
-  const interleavedSongs = interleaveSongsResults(songs1, songs2, songs3);
+  let interleavedSongs: GSBSong[] = [];
+  if (bpm >= 82) {
+    const url4 = `${baseTempoUrl}bpm=${Math.round(bpm / 2)}&limit=${limit}`;
+    const url5 = `${baseTempoUrl}bpm=${Math.round(bpm / 2) - 1}&limit=${limit}`;
+    const url6 = `${baseTempoUrl}bpm=${Math.round(bpm / 2) + 1}&limit=${limit}`;
+    const response4 = await fetch(url4);
+    const response5 = await fetch(url5);
+    const response6 = await fetch(url6);
+    const data4 = await response4.json();
+    const data5 = await response5.json();
+    const data6 = await response6.json();
+    const songs4 = getSongsFromResponse(data4);
+    const songs5 = getSongsFromResponse(data5);
+    const songs6 = getSongsFromResponse(data6);
+    interleavedSongs = interleaveSongsResults(songs1, songs2, songs3, songs4, songs5, songs6);
+  } else {
+    interleavedSongs = interleaveSongsResults(songs1, songs2, songs3);
+  }
   if (genres && genres.length > 0) {
     return filterSongs(interleavedSongs, genres);
   }
   return interleavedSongs;
 };
 
-function interleaveSongsResults<T>(arr1: GSBSong[], arr2: GSBSong[], arr3: GSBSong[]): GSBSong[] {
+// function interleaveSongsResults<T>(arr1: GSBSong[], arr2: GSBSong[], arr3: GSBSong[]): GSBSong[] {
+//   const result: GSBSong[] = [];
+
+//   // Determine the maximum length among the three arrays
+//   const maxLength = Math.max(arr1.length, arr2.length, arr3.length);
+
+//   for (let i = 0; i < maxLength; i++) {
+//     if (i < arr1.length) {
+//       result.push(arr1[i]);
+//     }
+//     if (i < arr2.length) {
+//       result.push(arr2[i]);
+//     }
+//     if (i < arr3.length) {
+//       result.push(arr3[i]);
+//     }
+//   }
+
+//   return result;
+// }
+
+function interleaveSongsResults<T>(...arrays: GSBSong[][]): GSBSong[] {
   const result: GSBSong[] = [];
 
-  // Determine the maximum length among the three arrays
-  const maxLength = Math.max(arr1.length, arr2.length, arr3.length);
+  // Keep track of the current index for each array
+  const indices: number[] = arrays.map(() => 0);
 
-  for (let i = 0; i < maxLength; i++) {
-    if (i < arr1.length) {
-      result.push(arr1[i]);
-    }
-    if (i < arr2.length) {
-      result.push(arr2[i]);
-    }
-    if (i < arr3.length) {
-      result.push(arr3[i]);
+  // Loop until all arrays are empty
+  while (arrays.some((arr) => arr.length > 0)) {
+    // Loop over each array
+    for (let i = 0; i < arrays.length; i++) {
+      // Get the current array and index
+      const arr = arrays[i];
+      const index = indices[i];
+
+      // If the array is not empty, push the element at the index to the result
+      if (arr.length > 0) {
+        result.push(arr[index]);
+      }
+
+      // Increment the index and remove the element from the array
+      indices[i]++;
+      arr.shift();
     }
   }
 
   return result;
 }
+
 const filterSongs = (songs: GSBSong[], genres: string[]): GSBSong[] => {
   let filteredSongs: GSBSong[] = [];
   songs.map((song) => {
-    const songGenres = song.artist.genres;
-    if (songGenres) {
-      songGenres.some((genre) => genres.includes(genre)) && filteredSongs.push(song);
+    if (song) {
+      const songGenres = song.artist.genres;
+      if (songGenres) {
+        songGenres.some((genre) => genres.includes(genre)) && filteredSongs.push(song);
+      }
     }
   });
   return filteredSongs;

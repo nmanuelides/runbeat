@@ -38,7 +38,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .main-container {
-  background: linear-gradient(180deg, $background-color, #00251b);
+  background: linear-gradient(180deg, $background-color, $dark-font-color);
   display: flex;
   flex-direction: column;
   align-items: center;
