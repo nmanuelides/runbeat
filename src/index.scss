@@ -37,17 +37,21 @@ body::-webkit-scrollbar-thumb {
   border: 1px solid transparent;
 }
 
-.curtain-on  {
+.curtain-on {
   position: absolute;
   background: black;
   width: 100svw;
   height: 100svh;
   z-index: 100000;
-  animation: intro 5s ease forwards;
+  backdrop-filter: blur(40px);
+  animation: intro 2s ease forwards;
 }
 
 @keyframes intro {
-  100% {background:transparent}
+  100% {
+    background: transparent;
+    backdrop-filter: blur(0);
+  }
 }
 
 .main-container {
