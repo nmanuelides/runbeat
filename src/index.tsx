@@ -10,6 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(
   <>
     <Cursor />
+    <div className="curtain-off"/>
     <div className="main-container">
       <div className="header-container">
         <div className="title-container">

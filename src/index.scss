@@ -37,6 +37,19 @@ body::-webkit-scrollbar-thumb {
   border: 1px solid transparent;
 }
 
+.curtain-on  {
+  position: absolute;
+  background: black;
+  width: 100svw;
+  height: 100svh;
+  z-index: 100000;
+  animation: intro 5s ease forwards;
+}
+
+@keyframes intro {
+  100% {background:transparent}
+}
+
 .main-container {
   background: linear-gradient(180deg, $background-color, $dark-font-color);
   display: flex;

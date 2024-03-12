@@ -31,6 +31,13 @@ function App() {
   let speed: number;
   let speedUnit: "kmh" | "mph" = "kmh";
   let height: number;
+  
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('from') === 'portfolio') {
+      document.getElementsByClassName('curtain-off')[0].classList.add('curtain-on');
+    }
+  }, []);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
