@@ -37,7 +37,7 @@ const getSongsFromResponse = (response: GSBPMResponse): GSBSong[] => {
 };
 
 export const getSongBySongName = async (songName: string, artistName: string) => {
-  const url = `${baseSearchUrl}type=both&lookup=song:${songName}artist:${artistName}`;
+  const url = `${baseSearchUrl}type=both&lookup=song:${songName}`;
   const response = await fetch(url);
   const data = await response.json();
 
