@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import "./App.scss";
 import "./mobile.scss";
-import { getSongs, getSongBySongName, GSBSong } from "../src/services/getsongbpm/getSongsByBpm";
+import { getSongs, getSong, GSBSong } from "../src/services/getsongbpm/getSongsByBpm";
 import { login, getAccessToken } from "../src/services/spotify/authentication";
 import { SpotifyUser, getSpotifyUser } from "./services/spotify/spotifyData";
 import { isUserAuthenticated } from "./services/spotify/authenticationHelper";
@@ -31,11 +31,11 @@ function App() {
   let speed: number;
   let speedUnit: "kmh" | "mph" = "kmh";
   let height: number;
-  
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (params.get('from') === 'portfolio') {
-      document.getElementsByClassName('curtain-off')[0].classList.add('curtain-on');
+    if (params.get("from") === "portfolio") {
+      document.getElementsByClassName("curtain-off")[0].classList.add("curtain-on");
     }
   }, []);
 
@@ -82,13 +82,13 @@ function App() {
 
     try {
       let searchParam: string | number;
-      let results: GSBSong[] = [];
+      let results: GSBSong[] | null = [];
       if (songBPM) {
         //Search by BPM
         results = await getSongs(songBPM, selectedGenres);
-      } else if (songName && artistName) {
+      } else if (songName) {
         //Search by song name
-        results = await getSongBySongName(songName, artistName);
+        results = await getSong(songName, artistName);
       } else {
         //Auto Suggest
         results = await getSongs(getSPM(speed, height, speedUnit, heightUnit), selectedGenres);
@@ -168,7 +168,7 @@ function App() {
             {searchResults.length > 0 && (
               <ul className="results-list">
                 {searchResults.map((song) => {
-                  if(song) {
+                  if (song) {
                     return (
                       <Song
                         key={song.song_id}

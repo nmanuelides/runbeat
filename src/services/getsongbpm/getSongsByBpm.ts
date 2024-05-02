@@ -36,15 +36,31 @@ const getSongsFromResponse = (response: GSBPMResponse): GSBSong[] => {
   return response.tempo;
 };
 
-export const getSongBySongName = async (songName: string, artistName: string) => {
-  const url = `${baseSearchUrl}type=both&lookup=song:${songName}`;
+export const getSong = async (songName: string, artistName?: string): Promise<GSBSong[]> => {
+  if (artistName) {
+    return getSongBySongNameAndArtist(songName, artistName);
+  } else {
+    return getSongBySongName(songName);
+  }
+};
+
+export const getSongBySongNameAndArtist = async (songName: string, artistName: string): Promise<GSBSong[]> => {
+  const url = `${baseSearchUrl}type=both&lookup=song:${songName}artist:${artistName}`;
   const response = await fetch(url);
   const data = await response.json();
 
   return data.search;
 };
 
-export const getSongByArtistName = async (artistName: string) => {
+export const getSongBySongName = async (songName: string): Promise<GSBSong[]> => {
+  const url = `${baseSearchUrl}type=song&lookup=${songName}`;
+  const response = await fetch(url);
+  const data = await response.json();
+
+  return data.search;
+};
+
+export const getSongByArtistName = async (artistName: string): Promise<GSBSong[]> => {
   const url = `${baseSearchUrl}type=artist&lookup=${encodeURI(artistName)}`;
   const response = await fetch(url);
   const data = await response.json();

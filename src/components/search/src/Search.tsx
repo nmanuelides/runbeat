@@ -24,7 +24,7 @@ const Search = ({ isSongNameSearch }: SearchProps) => {
     }
   };
 
-  return (
+  return ( 
     <form className="search__form" onSubmit={onSubmitHandler}>
       {!isSongNameSearch && <Tags />}
       <input
@@ -33,7 +33,8 @@ const Search = ({ isSongNameSearch }: SearchProps) => {
         type={isSongNameSearch ? "text" : "number"}
         ref={songNameinputRef}
         autoComplete="off"
-        placeholder={isSongNameSearch ? "Enter song name" : "Enter song bpm..."}
+        placeholder={isSongNameSearch ? "Enter song name (required)" : "Enter song bpm..."}
+        required
       />
       {isSongNameSearch && (
         <input
@@ -42,7 +43,7 @@ const Search = ({ isSongNameSearch }: SearchProps) => {
           type="text"
           ref={artistNameinputRef}
           autoComplete="off"
-          placeholder="Enter artist name..."
+          placeholder="Enter artist name for more precision..."
         />
       )}
       <button className={"search__button"} type="submit" disabled={isLoading}>
