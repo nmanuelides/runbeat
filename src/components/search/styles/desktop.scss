@@ -50,6 +50,7 @@
 
   &__button {
     width: 100%;
+    position: relative;
     border: 1px solid transparent;
     border-radius: 16px;
     font-family: "EudoxusBold", "sans-serif";
@@ -72,10 +73,42 @@
     background: $secondary-color;
     color: $primary-color;
   }
+
+  &__button:disabled::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    backdrop-filter: blur(2px);
+  }
+  &__button:disabled::after {
+    content: "";
+    position: absolute;
+    top: calc(50% - 22px);
+    left: calc(50% - 22px);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 8px solid $background-color; // Change the color as desired
+    border-top: 8px solid $accent-color; // Change the color for the animated part
+    animation: spin 1s infinite linear; // Apply the rotation animation
+  }
 }
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

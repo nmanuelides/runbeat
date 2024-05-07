@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "./App.scss";
 import "./mobile.scss";
 import { getSongs, getSong, GSBSong } from "../src/services/getsongbpm/getSongsByBpm";
@@ -13,13 +14,17 @@ import { GenresContext } from "./contexts/genresContext";
 import Snackbar, { SnackbarProps } from "./components/snackbar/src/Snackbar";
 import { getSPM } from "./helpers/formulaHelper";
 import TabsContainer from "./components/tabs-container/src/TabsContainer";
+import { RootState } from "./state/store";
+import { toggleIsLoading } from './state/search/searchSlice';
 
 function App() {
   const BASE_PLAYLIST_NAME = "RunBeat";
   const SPOTIFY_USER_KEY = "spotifyUser";
   const speedInputRef = useRef<HTMLInputElement | null>(null);
   const heightInputRef = useRef<HTMLInputElement | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoading = useSelector((state: RootState) => state.search.isLoading);
+  const dispatch = useDispatch();
+  // const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState<GSBSong[]>([]);
   const [spotifyUser, setSpotifyUser] = useState<SpotifyUser>();
   const [spotifyIsConnected, setSpotifyIsConnected] = useState<boolean>();
@@ -78,7 +83,8 @@ function App() {
     event.preventDefault();
     speed = Number(speedInputRef.current?.value.trim());
     height = Number(heightInputRef.current?.value.trim());
-    setIsLoading(true);
+    dispatch(toggleIsLoading())
+    // setIsLoading(true);
 
     try {
       let searchParam: string | number;
@@ -95,7 +101,6 @@ function App() {
       }
       searchParam = getSPM(speed, height, speedUnit, heightUnit);
       if (results.length > 0) {
-        console.log("Songs found: " + results.length);
         setSearchResults(results);
       } else {
         setSearchResults(results);
@@ -109,7 +114,7 @@ function App() {
       setSnackbarType("error");
       console.error(error);
     } finally {
-      setIsLoading(false);
+      dispatch(toggleIsLoading());
     }
   };
 
@@ -119,15 +124,11 @@ function App() {
     } else {
       setHeightUnit(e.target.checked ? "in" : "cm");
     }
-    console.log(
-      type + " Toogle is: ",
-      type === "speed" ? (e.target.checked ? "mph" : "kmh") : e.target.checked ? "in" : "cm"
-    );
   };
 
   return (
     <GenresContext.Provider value={{ selectedGenres, setSelectedGenres }}>
-      <SearchFormContext.Provider value={{ isLoading, onSubmit }}>
+      <SearchFormContext.Provider value={{ onSubmit }}>
         <ShowSnackbarContext.Provider value={{ showSnackbar, setShowSnackbar }}>
           <div className="App">
             <div className={"search-box"}>

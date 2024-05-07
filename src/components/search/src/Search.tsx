@@ -3,6 +3,8 @@ import { SearchFormContext } from "../../../contexts/searchFormContext";
 import Tags from "../../tags/src/Tags";
 import "../styles/desktop.scss";
 import "../styles/mobile.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../state/store";
 
 type SearchProps = {
   isSongNameSearch: boolean;
@@ -11,7 +13,8 @@ type SearchProps = {
 const Search = ({ isSongNameSearch }: SearchProps) => {
   const songNameinputRef = useRef<HTMLInputElement | null>(null);
   const artistNameinputRef = useRef<HTMLInputElement | null>(null);
-  const { isLoading, onSubmit } = useContext(SearchFormContext);
+  const { onSubmit } = useContext(SearchFormContext);
+  const isLoading = useSelector((state: RootState) => state.search.isLoading);
 
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     if (isSongNameSearch) {
@@ -24,7 +27,7 @@ const Search = ({ isSongNameSearch }: SearchProps) => {
     }
   };
 
-  return ( 
+  return (
     <form className="search__form" onSubmit={onSubmitHandler}>
       {!isSongNameSearch && <Tags />}
       <input

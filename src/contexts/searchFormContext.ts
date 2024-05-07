@@ -1,7 +1,6 @@
 import { createContext } from "react";
 
 type SearchFormState = {
-  isLoading: boolean;
   onSubmit: (
     event: React.FormEvent<HTMLFormElement>,
     songName?: string,
@@ -11,6 +10,5 @@ type SearchFormState = {
 };
 
 export const SearchFormContext = createContext<SearchFormState>({
-  isLoading: false,
   onSubmit: () => Promise.resolve(),
 });
