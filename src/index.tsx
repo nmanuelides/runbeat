@@ -3,19 +3,20 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Cursor from "./components/cursor/src/Cursor";
-import { Provider } from 'react-redux';
-import { store } from './state/store';
-import './index.scss';
+import { Provider } from "react-redux";
+import { store } from "./state/store";
+import "./index.scss";
+import "./mobile.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <Provider store={store}>
     <Cursor />
-    <div className="curtain-off"/>
+    <div className="curtain-off" />
     <div className="main-container">
       <div className="header-container">
         <div className="title-container">
-          <header className="title">RUNBEAT.</header>
+          <header className="title" id="main-title">RUNBEAT.</header>
           <h1 className="subtitle">Run to the beat</h1>
         </div>
       </div>

@@ -1,58 +1,59 @@
 @media (max-width: 768px) {
   body {
     height: 100vh !important;
-  }
-  .App {
-    width: 75svw;
-    margin-top: 30%;
-  }
 
-  .main-container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100svw;
-    height: 100svh;
-    background-image: url("./assets/halftone2.png");
-    background-size: percentage(2);
-    filter: invert(0.5);
-    mix-blend-mode: multiply;
-    opacity: 0.1;
-  }
+    .App {
+      width: 75svw;
+      margin-top: 30%;
+    }
 
-  .header-container {
-    height: 100vh;
-    border: none;
-    box-shadow: none;
-    background-position: left -300px top 0;
-    .title-container {
-      .title {
-        font-size: clamp(3rem, 18vw, 5rem);
-      }
-      .subtitle {
-        font-size: 1.3rem;
-        margin-bottom: 32px;
+    .main-container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100svw;
+      height: 100svh;
+      background-image: url("./assets/halftone2.png");
+      background-size: percentage(2);
+      filter: invert(0.5);
+      mix-blend-mode: multiply;
+      opacity: 0.1;
+    }
+
+    .header-container {
+      height: 100vh;
+      border: none;
+      box-shadow: none;
+      background-position: left -300px top 0;
+      .title-container {
+        .title {
+          font-size: clamp(3rem, 18vw, 5rem);
+        }
+        .subtitle {
+          font-size: 1.3rem;
+          margin-bottom: 32px;
+        }
       }
     }
-  }
-  .results-list {
-    align-self: center;
-  }
+    .results-list {
+      align-self: center;
+    }
 
-  .tools-container {
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    gap: 12px;
-    .setting-container {
-      align-items: flex-end;
+    .tools-container {
+      display: flex;
+      flex-direction: column;
+      width: fit-content;
+      gap: 12px;
+      .setting-container {
+        align-items: flex-end;
 
-      &__input {
-        margin-bottom: 3px;
-      }
-      .toggle-container {
-        gap: 0;
+        &__input {
+          margin-bottom: 3px;
+        }
+        .toggle-container {
+          gap: 0;
+        }
       }
     }
   }
