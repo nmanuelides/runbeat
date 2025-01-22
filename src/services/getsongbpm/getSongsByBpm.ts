@@ -1,6 +1,6 @@
 const apiKey = "7f4ee100c384a5b02d15d09906bceffd";
-const baseTempoUrl = `https://api.getsongbpm.com/tempo/?api_key=${apiKey}&`;
-const baseSearchUrl = `https://api.getsongbpm.com/search/?api_key=${apiKey}&`;
+const baseTempoUrl = `https://api.getsong.co/tempo/?api_key=${apiKey}&`;
+const baseSearchUrl = `https://api.getsong.co/search/?api_key=${apiKey}&`;
 
 type GSBArtist = {
   id: string;
@@ -36,7 +36,10 @@ const getSongsFromResponse = (response: GSBPMResponse): GSBSong[] => {
   return response.tempo;
 };
 
-export const getSong = async (songName: string, artistName?: string): Promise<GSBSong[]> => {
+export const getSong = async (
+  songName: string,
+  artistName?: string
+): Promise<GSBSong[]> => {
   if (artistName) {
     return getSongBySongNameAndArtist(songName, artistName);
   } else {
@@ -44,7 +47,10 @@ export const getSong = async (songName: string, artistName?: string): Promise<GS
   }
 };
 
-export const getSongBySongNameAndArtist = async (songName: string, artistName: string): Promise<GSBSong[]> => {
+export const getSongBySongNameAndArtist = async (
+  songName: string,
+  artistName: string
+): Promise<GSBSong[]> => {
   const url = `${baseSearchUrl}type=both&lookup=song:${songName}artist:${artistName}`;
   const response = await fetch(url);
   const data = await response.json();
@@ -52,7 +58,9 @@ export const getSongBySongNameAndArtist = async (songName: string, artistName: s
   return data.search;
 };
 
-export const getSongBySongName = async (songName: string): Promise<GSBSong[]> => {
+export const getSongBySongName = async (
+  songName: string
+): Promise<GSBSong[]> => {
   const url = `${baseSearchUrl}type=song&lookup=${songName}`;
   const response = await fetch(url);
   const data = await response.json();
@@ -60,7 +68,9 @@ export const getSongBySongName = async (songName: string): Promise<GSBSong[]> =>
   return data.search;
 };
 
-export const getSongByArtistName = async (artistName: string): Promise<GSBSong[]> => {
+export const getSongByArtistName = async (
+  artistName: string
+): Promise<GSBSong[]> => {
   const url = `${baseSearchUrl}type=artist&lookup=${encodeURI(artistName)}`;
   const response = await fetch(url);
   const data = await response.json();
@@ -68,7 +78,10 @@ export const getSongByArtistName = async (artistName: string): Promise<GSBSong[]
   return data.search;
 };
 
-export const getSongs = async (bpm: number, genres?: string[]): Promise<GSBSong[]> => {
+export const getSongs = async (
+  bpm: number,
+  genres?: string[]
+): Promise<GSBSong[]> => {
   const limit = "50";
   const url1 = `${baseTempoUrl}bpm=${bpm}&limit=${limit}`;
   const url2 = `${baseTempoUrl}bpm=${bpm - 1}&limit=${limit}`;
@@ -96,7 +109,14 @@ export const getSongs = async (bpm: number, genres?: string[]): Promise<GSBSong[
     const songs4 = getSongsFromResponse(data4);
     const songs5 = getSongsFromResponse(data5);
     const songs6 = getSongsFromResponse(data6);
-    interleavedSongs = interleaveSongsResults(songs1, songs2, songs3, songs4, songs5, songs6);
+    interleavedSongs = interleaveSongsResults(
+      songs1,
+      songs2,
+      songs3,
+      songs4,
+      songs5,
+      songs6
+    );
   } else {
     interleavedSongs = interleaveSongsResults(songs1, songs2, songs3);
   }
@@ -161,7 +181,8 @@ const filterSongs = (songs: GSBSong[], genres: string[]): GSBSong[] => {
     if (song) {
       const songGenres = song.artist.genres;
       if (songGenres) {
-        songGenres.some((genre) => genres.includes(genre)) && filteredSongs.push(song);
+        songGenres.some((genre) => genres.includes(genre)) &&
+          filteredSongs.push(song);
       }
     }
   });
